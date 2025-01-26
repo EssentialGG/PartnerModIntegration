@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "essentialad",
+  "version": "${version}",
+  "environment": "client",
+  "mixins": [
+    "mixins.essentialad.json"
+  ],
+  "entrypoints": {
+    "client": [
+      "gg.essential.ad.EssentialAd::init"
+    ]
+  },
+  "name": "Essential Ad",
+  "description": "<replace me>",
+  "authors": ["ModCore Inc"],
+  "contact": {
+    "homepage": "https://essential.gg/",
+    "issues": "https://essential.gg/support"
+  },
+  "depends": {
+    "fabricloader": ">0.12"
+  }
+}

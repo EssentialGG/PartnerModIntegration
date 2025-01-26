@@ -1,0 +1,17 @@
+modLoader="javafml"
+loaderVersion="[33,)"
+license="All rights reserved"
+
+[[mods]]
+modId="essentialad"
+version="${file.jarVersion}"
+displayName="Essential Ad"
+displayURL="https://essential.gg/"
+description="<replace me>"
+
+[[dependencies.essentialad]]
+modId="forge"
+mandatory=true
+versionRange="[33,)"
+ordering="NONE"
+side="BOTH"

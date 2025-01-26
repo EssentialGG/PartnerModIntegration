@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "essentialad",
+    "name": "Essential Ad",
+    "description": "<replace me>",
+    "version": "${version}",
+    "mcversion": "${mcVersionStr}",
+    "url": "https://essential.gg/",
+    "updateUrl": "",
+    "authorList": [
+      "ModCore Inc"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

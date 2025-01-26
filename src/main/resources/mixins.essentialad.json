@@ -1,0 +1,12 @@
+{
+  "minVersion": "0.7",
+  "compatibilityLevel": "JAVA_8",
+  "package": "gg.essential.ad.mixins",
+  "mixins": [
+    "MouseHelperAccessor",
+    "Mixin_Screen_OverrideMousePosition"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
