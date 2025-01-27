@@ -33,7 +33,7 @@ public class EssentialAdClassTransformer implements IClassTransformer {
 
             for (MethodNode method : classNode.methods) {
                 String methodName = FMLDeobfuscatingRemapper.INSTANCE.mapMethodName(classNode.name, method.name, method.desc);
-                if (methodName.equals("updateCameraAndRender")) {
+                if (methodName.equals("updateCameraAndRender") || methodName.equals("func_181560_a")) {
                     ListIterator<AbstractInsnNode> iterator = method.instructions.iterator();
                     while (iterator.hasNext()) {
                         AbstractInsnNode abstractNode = iterator.next();
@@ -43,7 +43,6 @@ public class EssentialAdClassTransformer implements IClassTransformer {
                             if (node.getOpcode() == Opcodes.INVOKESTATIC
                                 && node.owner.equals("net/minecraftforge/client/ForgeHooksClient")
                                 && node.name.equals("drawScreen")
-                                && node.desc.equals("(Lnet/minecraft/client/gui/GuiScreen;IIF)V")
                             ) {
                                 iterator.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "gg/essential/ad/modal/ModalManager", "drawScreenPriority", "()V", false));
                                 break;
@@ -64,7 +63,7 @@ public class EssentialAdClassTransformer implements IClassTransformer {
 
             for (MethodNode method : classNode.methods) {
                 String methodName = FMLDeobfuscatingRemapper.INSTANCE.mapMethodName(classNode.name, method.name, method.desc);
-                if (methodName.equals("drawScreen")) {
+                if (methodName.equals("drawScreen") || methodName.equals("func_73863_a")) {
                     InsnList list = new InsnList();
                     list.add(new TypeInsnNode(Opcodes.NEW, "gg/essential/ad/modal/ModalManager$DrawEvent"));
                     list.add(new InsnNode(Opcodes.DUP));
