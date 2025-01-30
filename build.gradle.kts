@@ -87,6 +87,11 @@ tasks.jar {
     manifest.attributes(
         "Implementation-Version" to version,
     )
+    if (platform.isModLauncher) {
+        manifest.attributes(
+            "MixinConfigs" to "mixins.essentialad.json"
+        )
+    }
     if (platform.mcVersion <= 11202) {
         manifest.attributes(
             "FMLCorePlugin" to "gg.essential.ad.asm.EssentialAdCoreMod",
