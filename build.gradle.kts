@@ -20,7 +20,7 @@ loom.runs {
             property("fml.coreMods.load", "gg.essential.ad.asm.EssentialAdCoreMod")
         }
         if (platform.mcVersion >= 11600 && platform.isForge) {
-            programArgs("--mixin", "mixins.essentialad.json")
+            programArgs("--mixin", "gg/essential/ad/mixins.json")
         }
     }
 }
@@ -90,7 +90,7 @@ tasks.jar {
     )
     if (platform.isModLauncher) {
         manifest.attributes(
-            "MixinConfigs" to "mixins.essentialad.json"
+            "MixinConfigs" to "gg/essential/ad/mixins.json"
         )
     }
     if (platform.mcVersion <= 11202) {
