@@ -58,7 +58,7 @@ dependencies {
         else -> error("Unable to determine DevAuth platform")
     }
 
-    modRuntimeOnly("me.djtheredstoner:DevAuth-${devAuthPlatform}:1.2.1")
+    modLocalRuntime("me.djtheredstoner:DevAuth-${devAuthPlatform}:1.2.1")
 }
 
 val downloadContainer by tasks.registering(DownloadContainerTask::class) {
