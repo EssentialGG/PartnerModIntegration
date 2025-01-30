@@ -1,5 +1,6 @@
 package gg.essential.ad;
 
+import java.io.BufferedReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,8 +17,8 @@ public class AdConfig {
 
     public static AdConfig load() {
         if (Files.exists(CONFIG_FILE)) {
-            try {
-                return EssentialAd.GSON.fromJson(Files.newBufferedReader(CONFIG_FILE), AdConfig.class);
+            try (BufferedReader reader = Files.newBufferedReader(CONFIG_FILE)) {
+                return EssentialAd.GSON.fromJson(reader, AdConfig.class);
             } catch (Exception e) {
                 EssentialAd.LOGGER.error("Failed to read config", e);
             }
