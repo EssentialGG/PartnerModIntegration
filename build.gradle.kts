@@ -77,6 +77,10 @@ tasks.processResources {
     from(downloadContainer.get().containerFile) {
         rename { "gg/essential/ad/container.jar" }
     }
+    inputs.property("version", { project.version })
+    filesMatching("gg/essential/ad/loader/version.txt") {
+        filter { _ -> project.version.toString() }
+    }
 }
 
 tasks.jar {

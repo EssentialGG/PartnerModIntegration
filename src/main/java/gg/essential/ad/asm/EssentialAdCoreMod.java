@@ -1,14 +1,23 @@
 package gg.essential.ad.asm;
 
+import gg.essential.ad.loader.EssentialAdLoader;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
 public class EssentialAdCoreMod implements IFMLLoadingPlugin {
+    static {
+        EssentialAdLoader.propose();
+    }
+
     @Override
     public String[] getASMTransformerClass() {
-        return new String[]{EssentialAdClassTransformer.class.getName()};
+        if (EssentialAdLoader.isActive()) {
+            return new String[]{EssentialAdClassTransformer.class.getName()};
+        } else {
+            return null;
+        }
     }
 
     @Override
