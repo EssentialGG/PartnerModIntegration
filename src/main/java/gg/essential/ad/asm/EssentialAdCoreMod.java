@@ -1,6 +1,7 @@
 package gg.essential.ad.asm;
 
 import gg.essential.ad.loader.EssentialAdLoader;
+import gg.essential.ad.loader.RelocationChecks;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraftforge.fml.relauncher.CoreModManager;
@@ -68,7 +69,9 @@ public class EssentialAdCoreMod implements IFMLLoadingPlugin {
 
     @Override
     public void injectData(Map<String, Object> map) {
-
+        // Note: Cannot do this in <(c)init> because Forge doesn't set up "fml.deobfuscatedEnvironment" until the next
+        //       tweaker round.
+        RelocationChecks.verifyRelocation();
     }
 
     @Override

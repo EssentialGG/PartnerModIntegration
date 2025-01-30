@@ -86,6 +86,8 @@ tasks.processResources {
 
 tasks.jar {
     manifest.attributes(
+        "Implementation-Vendor" to "ModCore Inc.",
+        "Implementation-Title" to "EssentialAd",
         "Implementation-Version" to version,
     )
     if (platform.isModLauncher) {
