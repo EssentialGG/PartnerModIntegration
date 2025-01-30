@@ -8,7 +8,7 @@ import java.util.Map;
 public class EssentialAdCoreMod implements IFMLLoadingPlugin {
     @Override
     public String[] getASMTransformerClass() {
-        return new String[]{"gg.essential.ad.asm.EssentialAdClassTransformer"};
+        return new String[]{EssentialAdClassTransformer.class.getName()};
     }
 
     @Override
