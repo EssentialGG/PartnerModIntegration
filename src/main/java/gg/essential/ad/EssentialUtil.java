@@ -27,7 +27,7 @@ public class EssentialUtil {
         try {
             Path destination = Paths.get("mods", "essential-container.jar");
             if (Files.exists(destination)) throw new RuntimeException("fix me!"); // fixme filename conflicts
-            try (InputStream is = EssentialUtil.class.getResourceAsStream("container.jar")) {
+            try (InputStream is = EssentialUtil.class.getResourceAsStream("container.jarx")) {
                 if (is == null) throw new IllegalStateException("No bundled container jar found!");
                 Files.copy(is, destination);
             }

@@ -75,7 +75,8 @@ val downloadContainer by tasks.registering(DownloadContainerTask::class) {
 
 tasks.processResources {
     from(downloadContainer.get().containerFile) {
-        rename { "gg/essential/ad/container.jar" }
+        // Note: Using jarx extension to workaround https://github.com/GradleUp/shadow/issues/111
+        rename { "gg/essential/ad/container.jarx" }
     }
     inputs.property("version", { project.version })
     filesMatching("gg/essential/ad/loader/version.txt") {
