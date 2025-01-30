@@ -49,3 +49,8 @@ listOf(
         buildFileName = "../../build.gradle.kts"
     }
 }
+
+include(":examples:1.8.9-forge")
+include(":examples:1.12.2-forge")
+include(":examples:1.16.5-forge")
+include(":examples:1.20.4-forge")

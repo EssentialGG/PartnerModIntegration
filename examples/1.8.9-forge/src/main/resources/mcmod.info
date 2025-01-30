@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "examplemod",
+    "name": "Example Mod",
+    "description": "This is an example mod.",
+    "version": "1.0.0",
+    "mcversion": "1.12.2",
+    "url": "https://example.com/",
+    "updateUrl": "",
+    "authorList": [],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

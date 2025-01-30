@@ -1,0 +1,17 @@
+modLoader="javafml"
+loaderVersion="[33,)"
+license="All rights reserved"
+
+[[mods]]
+modId="examplemod"
+version="${file.jarVersion}"
+displayName="Example Mod"
+displayURL="https://example.com/"
+description="This is an Example Mod"
+
+[[dependencies.examplemod]]
+modId="forge"
+mandatory=true
+versionRange="[33,)"
+ordering="NONE"
+side="BOTH"
