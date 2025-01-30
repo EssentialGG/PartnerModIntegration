@@ -14,6 +14,8 @@ repositories {
 
 loom.noServerRunConfigs()
 
+loom.mixin.useLegacyMixinAp.set(false)
+
 loom.runs {
     named("client") {
         if (platform.mcVersion <= 11202) {
