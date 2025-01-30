@@ -30,7 +30,6 @@ import java.util.stream.Collectors;
 
 //#if FORGE
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 //#if MC>=11600
@@ -50,13 +49,6 @@ import net.minecraftforge.client.event.GuiScreenEvent;
 //$$ import net.fabricmc.fabric.api.client.screen.v1.Screens;
 //#endif
 
-//#if FORGE
-//#if MC>=11600
-//$$ @Mod("essentialad")
-//#else
-@Mod(modid = "essentialad")
-//#endif
-//#endif
 public class EssentialAd {
 
     public static final Logger LOGGER = LogManager.getLogger("EssentialAd");
@@ -78,24 +70,15 @@ public class EssentialAd {
     private final CompletableFuture<AdData> adDataFuture = EssentialAPI.fetchAdData();
     private List<AdData.PartnerMod> partnerMods = null;
 
-    //#if FORGE
-    //#if MC>=11600
-    //$$ public EssentialAd() {
-    //#else
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
-    //#endif
+    public EssentialAd() {
+        //#if FORGE
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(ModalManager.INSTANCE);
+        //#else
+        //$$ ScreenEvents.AFTER_INIT.register(this::afterScreenInit);
+        //$$ ModalManager.INSTANCE.registerEvents();
+        //#endif
     }
-    //#endif
-
-    //#if FABRIC
-    //$$ public void init() {
-    //$$     ScreenEvents.AFTER_INIT.register(this::afterScreenInit);
-    //$$     ModalManager.INSTANCE.registerEvents();
-    //$$ }
-    //#endif
 
     private void createButton(
         GuiScreen screen,

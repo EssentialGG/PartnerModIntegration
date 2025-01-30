@@ -7,9 +7,6 @@
     "mixins.essentialad.json"
   ],
   "entrypoints": {
-    "client": [
-      "gg.essential.ad.EssentialAd::init"
-    ]
   },
   "name": "Essential Ad",
   "description": "<replace me>",

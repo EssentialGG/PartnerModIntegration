@@ -12,6 +12,7 @@ import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.JumpInsnNode;
 import org.objectweb.asm.tree.LabelNode;
+import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
@@ -20,6 +21,7 @@ import org.objectweb.asm.tree.VarInsnNode;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ListIterator;
+import java.util.Objects;
 
 public class EssentialAdClassTransformer implements IClassTransformer {
     private static final String PKG;
@@ -28,12 +30,34 @@ public class EssentialAdClassTransformer implements IClassTransformer {
         pkg = pkg.substring(0, pkg.length() - ".asm.EssentialAdClassTransformer".length());
         PKG = pkg.replace('.', '/');
     }
+    private static final String EssentialAd = PKG + "/EssentialAd";
     private static final String ModalManager = PKG + "/modal/ModalManager";
     private static final String DrawEvent = PKG + "/modal/ModalManager$DrawEvent";
 
     // fixme: cleanup, port to prod
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
+        if (transformedName.equals("net.minecraft.client.Minecraft")) {
+            ClassNode classNode = new ClassNode();
+            ClassReader reader = new ClassReader(basicClass);
+            reader.accept(classNode, ClassReader.EXPAND_FRAMES);
+
+            for (MethodNode method : classNode.methods) {
+                String methodName = FMLDeobfuscatingRemapper.INSTANCE.mapMethodName(classNode.name, method.name, method.desc);
+                if (methodName.equals("init") || methodName.equals("func_71384_a")) {
+                    InsnList list = new InsnList();
+                    list.add(new TypeInsnNode(Opcodes.NEW, EssentialAd));
+                    list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, EssentialAd, "<init>", "()V", false));
+                    // Note: Must be after `beginMinecraftLoading` (because prior to that Forge's EventBus class will
+                    //       complain) but before `displayGuiScreen` (because we want to react to that event)
+                    method.instructions.insertBefore(findConstant(method.instructions, "Post startup"), list);
+                }
+            }
+
+            ClassWriter writer = new ClassWriter(0);
+            classNode.accept(writer);
+            return writer.toByteArray();
+        }
         if (transformedName.equals("net.minecraft.client.renderer.EntityRenderer")) {
             ClassNode classNode = new ClassNode();
             ClassReader reader = new ClassReader(basicClass);
@@ -112,5 +136,16 @@ public class EssentialAdClassTransformer implements IClassTransformer {
             return writer.toByteArray();
         }
         return basicClass;
+    }
+
+    private AbstractInsnNode findConstant(InsnList list, Object value) {
+        ListIterator<AbstractInsnNode> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            AbstractInsnNode node = iterator.next();
+            if (node instanceof LdcInsnNode && Objects.equals(((LdcInsnNode) node).cst, value)) {
+                return node;
+            }
+        }
+        throw new RuntimeException("Failed to find LDC `" + value + "` instruction");
     }
 }
