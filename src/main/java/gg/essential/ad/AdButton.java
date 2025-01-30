@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 
 public class AdButton extends GuiButton {
 
-    private static final int BUTTON_ID = 0xCAFEBABE;
+    private static final int BUTTON_ID = 0xe4c164f1;
 
     private static final ResourceLocation TEXTURE =
         //#if MC>=12100
