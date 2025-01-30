@@ -35,9 +35,15 @@ public class RelocationChecks {
     }
 
     private static boolean isStandalone() {
+        //#if FABRIC
+        //$$ // FIXME can't get this to work on fabric
+        //$$ //  relocation isn't needed on fabric anyway, so let's just assume no one does it
+        //$$ return true;
+        //#else
         Package pkg = RelocationChecks.class.getPackage();
         if (pkg == null) return false;
         return "EssentialAd".equals(pkg.getImplementationTitle()) && "ModCore Inc.".equals(pkg.getImplementationVendor());
+        //#endif
     }
 
     private static void error() {
