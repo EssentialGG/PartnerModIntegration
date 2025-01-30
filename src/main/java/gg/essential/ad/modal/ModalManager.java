@@ -313,7 +313,6 @@ public class ModalManager {
         //$$     accessor.setMouseY(mouseY);
         //$$ }
         //#else
-        // TODO: use ATs?
         private static final MethodHandle xField;
         private static final MethodHandle yField;
         private static final MethodHandle eventXField;
