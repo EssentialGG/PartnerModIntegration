@@ -8,6 +8,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.FrameNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.JumpInsnNode;
@@ -113,6 +114,7 @@ public class EssentialAdClassTransformer implements IClassTransformer {
                     list.add(new FieldInsnNode(Opcodes.GETFIELD, DrawEvent, "mouseX", "I"));
                     list.add(new VarInsnNode(Opcodes.ISTORE, 1));
                     list.add(skipXWrite);
+                    list.add(new FrameNode(Opcodes.F_APPEND, 1, new Object[]{DrawEvent}, 0, null));
                     list.add(new VarInsnNode(Opcodes.ALOAD, 4));
                     list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, DrawEvent, "mouseYChanged", "()Z", false));
                     LabelNode skipYWrite = new LabelNode();
@@ -121,11 +123,12 @@ public class EssentialAdClassTransformer implements IClassTransformer {
                     list.add(new FieldInsnNode(Opcodes.GETFIELD, DrawEvent, "mouseY", "I"));
                     list.add(new VarInsnNode(Opcodes.ISTORE, 2));
                     list.add(skipYWrite);
+                    list.add(new FrameNode(Opcodes.F_CHOP, 1, null, 0, null));
                     method.instructions.insertBefore(method.instructions.getFirst(), list);
                 }
             }
 
-            ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
+            ClassWriter writer = new ClassWriter(0);
             classNode.accept(writer);
 //            byte[] bytes = writer.toByteArray();
 //            try {
