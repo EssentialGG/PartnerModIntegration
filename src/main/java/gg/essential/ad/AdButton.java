@@ -27,17 +27,20 @@ import java.util.function.Consumer;
 
 public class AdButton extends GuiButton {
 
+    // fixme allow resource packs?
+    public static ResourceLocation TEXTURE_MAIN_MENU = Resources.load("button_mainmenu.png");
+    public static ResourceLocation TEXTURE_MULTIPLAYER = Resources.load("button_multiplayer.png");
+    public static ResourceLocation TEXTURE_SINGLEPLAYER = Resources.load("button_singleplayer.png");
+
     private static final int BUTTON_ID = 0xe4c164f1;
 
-    private static final ResourceLocation TEXTURE = Resources.load("button.png");
-
-    private final int texYOffset;
+    private final ResourceLocation texture;
     private final String tooltip;
     //#if MC<11600
     private final Consumer<GuiButton> onPress;
     //#endif
 
-    public AdButton(int x, int y, int texYOffset, Consumer<GuiButton> onPress, String tooltip) {
+    public AdButton(int x, int y, ResourceLocation texture, Consumer<GuiButton> onPress, String tooltip) {
         //#if MC>=11903
         //$$ super(x, y, 20, 20, Text.empty(), onPress::accept, ButtonWidget.DEFAULT_NARRATION_SUPPLIER);
         //#elseif MC>=11900
@@ -47,7 +50,7 @@ public class AdButton extends GuiButton {
         //#else
         super(BUTTON_ID, x, y, 20, 20, "");
         //#endif
-        this.texYOffset = texYOffset;
+        this.texture = texture;
         this.tooltip = tooltip;
         //#if MC<11600
         this.onPress = onPress;
@@ -97,17 +100,18 @@ public class AdButton extends GuiButton {
         //#endif
     ) {
         if (this.visible) {
-            mc.getTextureManager().bindTexture(TEXTURE);
+            mc.getTextureManager().bindTexture(texture);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             boolean hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
             int x = 0;
             if (hovered) x += this.width;
 
-            this.drawTexturedModalRect(this.x, this.y, x, texYOffset, this.width, this.height);
+            Draw draw = new Draw(mouseX, mouseY);
+            draw.texturedRect(texture, this.x, this.y, this.width, this.height, x, 0, this.width * 2, this.height);
 
             if (hovered) {
                 //fixme depth
-                drawTooltip(new Draw(mouseX, mouseY), mc, TooltipPosition.ABOVE);
+                drawTooltip(draw, mc, TooltipPosition.ABOVE);
             }
         }
     }

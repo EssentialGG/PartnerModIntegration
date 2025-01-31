@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -95,13 +96,13 @@ public class EssentialAd {
         int width = screen.width;
         int height = screen.height;
 
-        int texYOffset;
+        ResourceLocation texture;
         String tooltip;
         int x;
         int y;
         int index = buttonList.size();
         if (screen instanceof GuiMainMenu) {
-            texYOffset = 0;
+            texture = AdButton.TEXTURE_MAIN_MENU;
             tooltip = "Enhanced Minecraft\nfeatures, with Essential";
 
             GuiButton multiplayerButton = UButton.findButton(buttonList, MAIN_MENU_BUTTONS);
@@ -118,11 +119,11 @@ public class EssentialAd {
         } else if (screen instanceof GuiIngameMenu) {
             if (Minecraft.getMinecraft().getCurrentServerData() != null) {
                 // On a server
-                texYOffset = 40;
+                texture = AdButton.TEXTURE_MULTIPLAYER;
                 tooltip = "Stay connected with friends,\nall inside of Minecraft";
             } else {
                 // In singleplayer
-                texYOffset = 20;
+                texture = AdButton.TEXTURE_SINGLEPLAYER;
                 tooltip = "Host worlds for free, invite\nfriends, and play together";
             }
 
@@ -141,7 +142,7 @@ public class EssentialAd {
             return;
         }
 
-        adder.accept(new AdButton(x, y, texYOffset, button ->
+        adder.accept(new AdButton(x, y, texture, button ->
         {
             //#if MC>=11600
             //$$ // Delay since the element is focused after the click is processed.
