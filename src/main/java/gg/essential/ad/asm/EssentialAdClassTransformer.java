@@ -40,7 +40,7 @@ public class EssentialAdClassTransformer implements IClassTransformer {
         if (transformedName.equals("net.minecraft.client.Minecraft")) {
             ClassNode classNode = new ClassNode();
             ClassReader reader = new ClassReader(basicClass);
-            reader.accept(classNode, ClassReader.EXPAND_FRAMES);
+            reader.accept(classNode, 0);
 
             for (MethodNode method : classNode.methods) {
                 String methodName = FMLDeobfuscatingRemapper.INSTANCE.mapMethodName(classNode.name, method.name, method.desc);
@@ -61,7 +61,7 @@ public class EssentialAdClassTransformer implements IClassTransformer {
         if (transformedName.equals("net.minecraft.client.renderer.EntityRenderer")) {
             ClassNode classNode = new ClassNode();
             ClassReader reader = new ClassReader(basicClass);
-            reader.accept(classNode, ClassReader.EXPAND_FRAMES);
+            reader.accept(classNode, 0);
 
             for (MethodNode method : classNode.methods) {
                 String methodName = FMLDeobfuscatingRemapper.INSTANCE.mapMethodName(classNode.name, method.name, method.desc);
@@ -91,7 +91,7 @@ public class EssentialAdClassTransformer implements IClassTransformer {
         if (transformedName.equals("net.minecraft.client.gui.GuiScreen")) {
             ClassNode classNode = new ClassNode();
             ClassReader reader = new ClassReader(basicClass);
-            reader.accept(classNode, ClassReader.EXPAND_FRAMES);
+            reader.accept(classNode, 0);
 
             for (MethodNode method : classNode.methods) {
                 String methodName = FMLDeobfuscatingRemapper.INSTANCE.mapMethodName(classNode.name, method.name, method.desc);
