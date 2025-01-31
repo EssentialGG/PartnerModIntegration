@@ -8,13 +8,13 @@ import net.minecraft.util.ResourceLocation;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.atomic.AtomicInteger;
 
 //#if MC>=11600
 //$$ import net.minecraft.client.renderer.texture.NativeImage;
 //#else
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.atomic.AtomicInteger;
 //#endif
 
 

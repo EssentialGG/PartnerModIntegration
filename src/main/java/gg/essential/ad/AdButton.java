@@ -68,19 +68,19 @@ public class AdButton extends GuiButton {
             //#if MC>=12000
             //#elseif MC>=11700
             //$$ RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            //$$ RenderSystem.setShaderTexture(0, TEXTURE);
+            //$$ RenderSystem.setShaderTexture(0, texture);
             //#else
-            //$$ Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
+            //$$ Minecraft.getInstance().getTextureManager().bindTexture(texture);
             //#endif
     //$$         int x = 0;
     //$$         if (this.isHovered()) x += this.width;
     //$$
             //#if MC>=12000
-            //$$ context.drawTexture(TEXTURE, this.getX(), this.getY(), 0, x, texYOffset, width, height, 256, 256);
+            //$$ context.drawTexture(texture, this.getX(), this.getY(), 0, x, 0, width, height, width * 2, height);
             //#elseif MC>=11903
-            //$$ drawTexture(matrixStack, this.getX(), this.getY(), 0, x, texYOffset, width, height, 256, 256);
+            //$$ drawTexture(matrixStack, this.getX(), this.getY(), 0, x, 0, width, height, width * 2, height);
             //#else
-            //$$ blit(matrixStack, this.x, this.y, 0, x, texYOffset, width, height, 256, 256);
+            //$$ blit(matrixStack, this.x, this.y, 0, x, 0, width, height, width * 2, height);
             //#endif
     //$$         if (this.isHovered()) {
                 //#if MC>=12000
