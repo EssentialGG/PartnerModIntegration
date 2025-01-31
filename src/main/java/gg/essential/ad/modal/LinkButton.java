@@ -1,13 +1,13 @@
 package gg.essential.ad.modal;
 
 import gg.essential.ad.Draw;
-import gg.essential.ad.mc.UMinecraft;
+import gg.essential.ad.Resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 public class LinkButton extends ModalButton {
 
-    private static final ResourceLocation ICON = UMinecraft.identifier("essentialad", "link.png");
+    private static final ResourceLocation ICON = Resources.load("link.png");
 
     public LinkButton(int x, int y, String text, Runnable onClick) {
         super(x, y, Minecraft.getMinecraft().fontRenderer.getStringWidth(text) + 10, 11, null, text, onClick);

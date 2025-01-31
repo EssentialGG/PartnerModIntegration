@@ -2,40 +2,30 @@ package gg.essential.ad.modal;
 
 import gg.essential.ad.Draw;
 import gg.essential.ad.EssentialUtil;
+import gg.essential.ad.Resources;
 import gg.essential.ad.data.AdData;
 import gg.essential.ad.data.ModalData;
 import gg.essential.ad.Tooltip;
 import gg.essential.ad.UDesktop;
 import gg.essential.ad.mc.Font;
-import gg.essential.ad.mc.UMinecraft;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
-
-//#if MC>=11600
-//$$ import net.minecraft.client.renderer.texture.NativeImage;
-//#else
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-//#endif
 
 public class AdModal extends Modal {
 
     private final Map<ModalData.Feature, ResourceLocation> iconTextures = new HashMap<>();
 
-    private static final ResourceLocation X_ICON = UMinecraft.identifier("essentialad", "x.png");
-    private static final ResourceLocation ESSENTIAL_LOGO = UMinecraft.identifier("essentialad", "essential.png");
-    private static final ResourceLocation REMOVE_INTEGRATION = UMinecraft.identifier("essentialad", "removeintegration.png");
+    private static final ResourceLocation X_ICON = Resources.load("x.png");
+    private static final ResourceLocation ESSENTIAL_LOGO = Resources.load("essential.png");
+    private static final ResourceLocation REMOVE_INTEGRATION = Resources.load("removeintegration.png");
 
     private final ModalData modalData;
     private final String tooltip;
@@ -219,28 +209,8 @@ public class AdModal extends Modal {
         super.close();
     }
 
-    private static final AtomicInteger counter = new AtomicInteger(0);
-
     private static ResourceLocation loadIconTexture(ModalData.Feature feature) {
         byte[] bytes = Base64.getDecoder().decode(feature.getIcon());
-        //#if MC>=11600
-        //$$ NativeImage image;
-        //$$ try {
-        //$$     image = NativeImage.read(new ByteArrayInputStream(bytes));
-        //$$ } catch (IOException e) {
-        //$$     throw new RuntimeException(e);
-        //$$ }
-        //#else
-        BufferedImage image;
-        try {
-            image = ImageIO.read(new ByteArrayInputStream(bytes));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //#endif
-        DynamicTexture texture = new DynamicTexture(image);
-        ResourceLocation location = UMinecraft.identifier("essentialad", "feature/icon/" + counter.getAndIncrement());
-        Minecraft.getMinecraft().getTextureManager().loadTexture(location, texture);
-        return location;
+        return Resources.load(new ByteArrayInputStream(bytes));
     }
 }

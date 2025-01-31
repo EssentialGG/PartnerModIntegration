@@ -1,12 +1,12 @@
 package gg.essential.ad.modal;
 
 import gg.essential.ad.Draw;
-import gg.essential.ad.mc.UMinecraft;
+import gg.essential.ad.Resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 public class InstallButton extends ModalButton {
-    private static final ResourceLocation ICON = UMinecraft.identifier("essentialad", "download.png");
+    private static final ResourceLocation ICON = Resources.load("download.png");
 
     public InstallButton(int x, int y, Runnable onClick) {
         super(x, y, 140, ButtonColor.BLUE, "", onClick);

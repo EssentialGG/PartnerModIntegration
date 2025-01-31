@@ -29,12 +29,7 @@ public class AdButton extends GuiButton {
 
     private static final int BUTTON_ID = 0xe4c164f1;
 
-    private static final ResourceLocation TEXTURE =
-        //#if MC>=12100
-        //$$ Identifier.of("essentialad", "button.png");
-        //#else
-        new ResourceLocation("essentialad", "button.png");
-        //#endif
+    private static final ResourceLocation TEXTURE = Resources.load("button.png");
 
     private final int texYOffset;
     private final String tooltip;
