@@ -1,6 +1,7 @@
 package gg.essential.ad.modal;
 
 import gg.essential.ad.Draw;
+import gg.essential.ad.EssentialAd;
 import gg.essential.ad.EssentialUtil;
 import gg.essential.ad.Resources;
 import gg.essential.ad.data.AdData;
@@ -21,20 +22,25 @@ import java.util.Map;
 
 public class AdModal extends Modal {
 
-    private final Map<ModalData.Feature, ResourceLocation> iconTextures = new HashMap<>();
-
     private static final ResourceLocation X_ICON = Resources.load("x.png");
     private static final ResourceLocation ESSENTIAL_LOGO = Resources.load("essential.png");
     private static final ResourceLocation REMOVE_INTEGRATION = Resources.load("removeintegration.png");
 
+    private final Map<FeatureEntry, ResourceLocation> iconTextures = new HashMap<>();
+
     private final ModalData modalData;
-    private final String tooltip;
+    private final String parterModsTooltip;
+    private final List<FeatureEntry> features = new ArrayList<>();
 
     private int featuresOffset;
 
     public AdModal(ModalData modalData, List<AdData.PartnerMod> partnerMods) {
         this.modalData = modalData;
-        this.tooltip = getTooltip(partnerMods);
+        this.parterModsTooltip = getTooltip(partnerMods);
+
+        for (ModalData.Feature feature : modalData.getFeatures()) {
+            features.add(FeatureEntry.fromInfra(feature));
+        }
     }
 
     @Override
@@ -45,7 +51,7 @@ public class AdModal extends Modal {
         height += Font.getMultilineStringHeight(modalData.getSubtitle("en_us"), 10);
         height += 7;
         featuresOffset = height;
-        height += 13 * modalData.getFeatures().size();
+        height += 13 * features.size();
         height += 6;
         int learnMoreOffset = height;
         height += 24;
@@ -95,36 +101,33 @@ public class AdModal extends Modal {
         // Features
         {
             int maxWidth = 0;
-            for (ModalData.Feature feature : modalData.getFeatures()) {
-                maxWidth = Math.max(Font.getStringWidth(feature.getText("en_us").replaceAll("__", "")), maxWidth);
+            for (FeatureEntry feature : features) {
+                maxWidth = Math.max(Font.getStringWidth(feature.getDisplayedText()), maxWidth);
             }
 
             int featureX = centreX - (maxWidth + 14) / 2;
 
             int featureY = startY + featuresOffset;
 
-            for (ModalData.Feature feature : modalData.getFeatures()) {
+            for (FeatureEntry feature : features) {
                 ResourceLocation location = iconTextures.computeIfAbsent(feature, AdModal::loadIconTexture);
                 draw.texturedRect(location, featureX + 1, featureY + 1, 10, 10, 0, 0, 10, 10, 0xFF000000);
                 draw.texturedRect(location, featureX, featureY, 10, 10, 0, 0, 10, 10, 0xFF0a82fd);
 
-                //fixme improve handling, caching?
-                String text = feature.getText("en_us");
-                String tooltip = feature.getTooltip("en_us");
+                int textX = featureX + 14;
+                int textY = featureY + 1;
+
+                String text = feature.text;
+                FeatureTooltip tooltip = feature.tooltip;
                 if (tooltip != null) {
-                    int tooltipStart = text.indexOf("__");
-                    if (tooltipStart == -1) return;
-                    int tooltipEnd = text.indexOf("__", tooltipStart + 2);
-                    if (tooltipEnd == -1) return;
+                    int tooltipStart = tooltip.tooltipStart;
+                    int tooltipEnd = tooltip.tooltipEnd;
 
                     String beforeTooltip = text.substring(0, tooltipStart);
                     int beforeTooltipWidth = Font.getStringWidth(beforeTooltip);
                     String withTooltip = text.substring(tooltipStart + 2, tooltipEnd);
                     int withTooltipWidth = Font.getStringWidth(withTooltip);
                     String afterTooltip = text.substring(tooltipEnd + 2);
-
-                    int textX = featureX + 14;
-                    int textY = featureY + 1;
 
                     if (!beforeTooltip.isEmpty()) {
                         draw.string(beforeTooltip, textX, textY, 0xFFe5e5e5, 0xFF000000);
@@ -137,7 +140,13 @@ public class AdModal extends Modal {
 
                     if (draw.hovered(textX, textY, withTooltipWidth, 10)) {
                         int finalX = textX;
-                        Draw.deferred(d -> Tooltip.drawTooltip(d, this.tooltip, Tooltip.Position.BELOW, finalX, textY, withTooltipWidth, 10));
+                        String tooltipText;
+                        if (tooltip.text.equals("MOD_PARTNERS")) {
+                            tooltipText = this.parterModsTooltip;
+                        } else {
+                            tooltipText = tooltip.text;
+                        }
+                        Draw.deferred(d -> Tooltip.drawTooltip(d, tooltipText, Tooltip.Position.BELOW, finalX, textY, withTooltipWidth, 10));
                     }
 
                     textX += withTooltipWidth;
@@ -146,7 +155,7 @@ public class AdModal extends Modal {
                         draw.string(afterTooltip, textX, textY, 0xFFe5e5e5, 0xFF000000);
                     }
                 } else {
-                    draw.string(feature.getText("en_us"), featureX + 14, featureY + 1, 0xFFe5e5e5, 0xFF000000);
+                    draw.string(text, textX, textY, 0xFFe5e5e5, 0xFF000000);
                 }
 
                 featureY += 13;
@@ -209,8 +218,67 @@ public class AdModal extends Modal {
         super.close();
     }
 
-    private static ResourceLocation loadIconTexture(ModalData.Feature feature) {
-        byte[] bytes = Base64.getDecoder().decode(feature.getIcon());
+    private static ResourceLocation loadIconTexture(FeatureEntry feature) {
+        byte[] bytes = Base64.getDecoder().decode(feature.icon);
         return Resources.load(new ByteArrayInputStream(bytes));
+    }
+
+    private static class FeatureEntry {
+        private final String text;
+        private final String icon;
+        private final FeatureTooltip tooltip;
+
+        public FeatureEntry(String text, String icon, FeatureTooltip tooltip) {
+            this.text = text;
+            this.icon = icon;
+            this.tooltip = tooltip;
+        }
+
+        public String getDisplayedText() {
+            if (tooltip != null) {
+                return text.substring(0, tooltip.tooltipStart)
+                    + text.substring(tooltip.tooltipStart + 2, tooltip.tooltipEnd)
+                    + text.substring(tooltip.tooltipEnd + 2);
+            } else {
+                return text;
+            }
+        }
+
+        public static FeatureEntry fromInfra(ModalData.Feature feature) {
+            String text = feature.getText("en_us");
+            String tooltipText = feature.getTooltip("en_us");
+
+            FeatureTooltip tooltip = null;
+            if (tooltipText != null) {
+                tooltip = FeatureTooltip.parse(text, tooltipText);
+            }
+            return new FeatureEntry(text, feature.getIcon(), tooltip);
+        }
+    }
+
+    private static class FeatureTooltip {
+        private final String text;
+        private final int tooltipStart;
+        private final int tooltipEnd;
+
+        public FeatureTooltip(String text, int tooltipStart, int tooltipEnd) {
+            this.text = text;
+            this.tooltipStart = tooltipStart;
+            this.tooltipEnd = tooltipEnd;
+        }
+
+        public static FeatureTooltip parse(String text, String tooltipText) {
+            int tooltipStart = text.indexOf("__");
+            if (tooltipStart == -1) {
+                EssentialAd.LOGGER.warn("Invalid tooltip for string: {}", text);
+                return null;
+            }
+            int tooltipEnd = text.indexOf("__", tooltipStart + 2);
+            if (tooltipEnd == -1) {
+                EssentialAd.LOGGER.warn("Invalid tooltip for string: {}", text);
+                return null;
+            }
+            return new FeatureTooltip(tooltipText, tooltipStart, tooltipEnd);
+        }
     }
 }
