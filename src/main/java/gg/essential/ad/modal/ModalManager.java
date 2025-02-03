@@ -86,6 +86,8 @@ public class ModalManager {
         //$$ MatrixStack stack
         //#endif
     ) {
+        resetMousePosition();
+
         Draw draw = new Draw(
             (int) UMouse.getScaledX(),
             (int) UMouse.getScaledY()
@@ -100,8 +102,6 @@ public class ModalManager {
 
     private void handleDraw(Draw draw) {
         if (currentModal == null) return;
-
-        resetMousePosition();
 
         int width = UResolution.getScaledWidth();
         int height = UResolution.getScaledHeight();
