@@ -112,9 +112,9 @@ public class ModalManager {
         return true;
     }
 
-    private boolean handleKeyTyped(int scanCode) {
+    private boolean handleKeyTyped(int key) {
         if (currentModal == null) return false;
-        currentModal.keyPressed(scanCode);
+        currentModal.keyPressed(key);
         return true;
     }
 
@@ -163,7 +163,7 @@ public class ModalManager {
     //$$
     //$$ @SubscribeEvent
     //$$ public void keyPressed(ScreenEvent.KeyPressed.Pre event) {
-    //$$     event.setCanceled(handleKeyTyped(event.getScanCode()));
+    //$$     event.setCanceled(handleKeyTyped(event.getKeyCode()));
     //$$ }
     //#elseif MC>=11800
     //$$ @SubscribeEvent
@@ -183,7 +183,7 @@ public class ModalManager {
     //$$
     //$$ @SubscribeEvent
     //$$ public void keyPressed(ScreenEvent.KeyboardKeyPressedEvent.Pre event) {
-    //$$     event.setCanceled(handleKeyTyped(event.getScanCode()));
+    //$$     event.setCanceled(handleKeyTyped(event.getKeyCode()));
     //$$ }
     //#elseif MC>=11600
     //$$ @SubscribeEvent
@@ -203,7 +203,7 @@ public class ModalManager {
     //$$
     //$$ @SubscribeEvent
     //$$ public void keyPressed(GuiScreenEvent.KeyboardKeyPressedEvent.Pre event) {
-    //$$     event.setCanceled(handleKeyTyped(event.getScanCode()));
+    //$$     event.setCanceled(handleKeyTyped(event.getKeyCode()));
     //$$ }
     //#else
     public static void preDraw(DrawEvent event) {
