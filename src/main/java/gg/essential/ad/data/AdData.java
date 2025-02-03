@@ -10,6 +10,11 @@ public class AdData {
     @SerializedName("partnered_mods")
     private List<PartnerMod> partneredMods;
 
+    public AdData(ModalData modal, List<PartnerMod> partneredMods) {
+        this.modal = modal;
+        this.partneredMods = partneredMods;
+    }
+
     public static class PartnerMod {
         private String id;
         @SerializedName("display_name")

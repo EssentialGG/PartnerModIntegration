@@ -1,16 +1,19 @@
 package gg.essential.ad;
 
 import gg.essential.ad.data.AdData;
+import gg.essential.ad.data.ModalData;
 import gg.essential.ad.loader.EssentialAdLoader;
 import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Base64;
 import java.util.concurrent.CompletableFuture;
 
 public class EssentialAPI {
@@ -23,15 +26,15 @@ public class EssentialAPI {
 
     private static final String USER_AGENT = "EssentialAd/" + EssentialAdLoader.OUR_VERSION + " (" + EssentialAdLoader.OUR_PKG + ")";
 
-    private static final Path OVERRIDE_FILE = AdConfig.CONFIG_FOLDER.resolve("data.override.json");
+    private static final Path API_OVERRIDE_FILE = AdConfig.CONFIG_FOLDER.resolve("data.override.json");
+    private static final Path MODAL_OVERRIDE_FILE = AdConfig.CONFIG_FOLDER.resolve("mod-partner-modal-metadata.json");
 
     public static CompletableFuture<AdData> fetchAdData() {
         CompletableFuture<AdData> future = new CompletableFuture<>();
         CompletableFuture.runAsync(() -> {
             try {
-                // todo: add an override file just for the modal, and that behaves like that configuration repo (images as separate files)
-                if (Files.exists(OVERRIDE_FILE)) {
-                    try (BufferedReader reader = Files.newBufferedReader(OVERRIDE_FILE)) {
+                if (Files.exists(API_OVERRIDE_FILE)) {
+                    try (BufferedReader reader = Files.newBufferedReader(API_OVERRIDE_FILE)) {
                         AdData data = EssentialAd.GSON.fromJson(reader, AdData.class);
                         future.complete(data);
                         return;
@@ -51,6 +54,26 @@ public class EssentialAPI {
                 }
 
                 AdData data = EssentialAd.GSON.fromJson(response, AdData.class);
+
+                if (Files.exists(MODAL_OVERRIDE_FILE)) {
+                    try (BufferedReader reader = Files.newBufferedReader(MODAL_OVERRIDE_FILE)) {
+                        ModalData modalData = EssentialAd.GSON.fromJson(reader, ModalData.class);
+                        // Replace image paths with base64 representation
+                        for (ModalData.Feature feature : modalData.getFeatures()) {
+                            Path iconPath = AdConfig.CONFIG_FOLDER.resolve(feature.getIcon());
+                            try {
+                                byte[] bytes = Files.readAllBytes(iconPath);
+                                String base64 = Base64.getEncoder().encodeToString(bytes);
+                                feature.setIcon(base64);
+                            } catch (IOException e) {
+                                EssentialAd.LOGGER.error("Failed to load icon {}", iconPath, e);
+                            }
+                        }
+
+                        data = new AdData(modalData, data.getPartneredMods());
+                    }
+                }
+
                 future.complete(data);
             } catch (Exception e) {
                 EssentialAd.LOGGER.error("Failed to fetch modal data", e);

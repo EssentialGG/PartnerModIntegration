@@ -17,6 +17,10 @@ public class ModalData {
             return icon;
         }
 
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
+
         public String getText(String language) {
             return text.get(language);
         }
