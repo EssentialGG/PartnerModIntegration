@@ -144,6 +144,42 @@ public class EssentialAd {
             return;
         }
 
+        // If we overlap with another button, move to the right, repeatedly
+        // If we can't find a free space, try moving to the left instead
+        boolean movingRight = true;
+        boolean foundFreeSpace;
+        do {
+            foundFreeSpace = true;
+            //#if MC>=11600
+            //$$ for (Widget widget : buttonList) {
+            //$$     if (!(widget instanceof Button)) continue;
+            //$$     Button other = (Button) widget;
+            //#else
+            for (GuiButton other : buttonList) {
+            //#endif
+                if (overlaps(x, y, 20, 20, other)) {
+                    foundFreeSpace = false;
+                    if (movingRight) {
+                        int newX = UButton.getX(other) + UButton.getWidth(other) + buttonSpacing;
+                        if (newX + 20 <= width) {
+                            x = newX;
+                        } else {
+                            movingRight = false;
+                        }
+                    } else {
+                        int newX = UButton.getX(other) - buttonSpacing - 20;
+                        if (newX >= 0) {
+                            x = newX;
+                        } else {
+                            // give up
+                            foundFreeSpace = true;
+                        }
+                    }
+                    break;
+                }
+            }
+        } while (!foundFreeSpace);
+
         adder.accept(new AdButton(x, y, texture, button ->
         {
             //#if MC>=11600
@@ -163,6 +199,14 @@ public class EssentialAd {
                 ModalManager.INSTANCE.setModal(new AdModal(data.getModal(), getPartnerMods(data)));
             }
         }, tooltip), index);
+    }
+
+    private boolean overlaps(int x1, int y1, int w1, int h1, GuiButton button) {
+        int x2 = UButton.getX(button);
+        int y2 = UButton.getY(button);
+        int w2 = UButton.getWidth(button);
+        int h2 = UButton.getHeight(button);
+        return x1 < x2 + w2 && x2 < x1 + w1 && y1 < y2 + h2 && y2 < y1 + h1;
     }
 
     //#if FORGE

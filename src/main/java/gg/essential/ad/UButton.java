@@ -28,6 +28,14 @@ public class UButton {
         //#endif
     }
 
+    public static int getHeight(GuiButton button) {
+        //#if MC>=11600
+        //$$ return button.getHeight();
+        //#else
+        return button.height;
+        //#endif
+    }
+
     public static int getX(GuiButton button) {
         //#if MC>=11903
         //$$ return button.getX();
