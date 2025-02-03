@@ -20,7 +20,7 @@ public class EssentialAPI {
 
     private static final String API_BASE_URL = System.getProperty(
         "essential.ad.api",
-        "https://api.lon-dev.modcore.dev" // fixme replace with prod
+        "https://api.essential.gg"
     );
     private static final String AD_DATA_URL = API_BASE_URL + "/v1/mod-partner";
 
