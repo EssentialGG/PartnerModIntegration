@@ -27,7 +27,6 @@ import java.util.function.Consumer;
 
 public class AdButton extends GuiButton {
 
-    // fixme allow resource packs?
     public static ResourceLocation TEXTURE_MAIN_MENU = Resources.load("button_mainmenu.png");
     public static ResourceLocation TEXTURE_MULTIPLAYER = Resources.load("button_multiplayer.png");
     public static ResourceLocation TEXTURE_SINGLEPLAYER = Resources.load("button_singleplayer.png");
