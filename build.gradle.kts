@@ -3,9 +3,11 @@ import gg.essential.gradle.util.*
 
 plugins {
     id("gg.essential.defaults")
+    id("gg.essential.defaults.maven-publish")
     id("gg.essential.multi-version")
 }
 
+group = "gg.essential"
 version = "1.0.0"
 
 repositories {
@@ -102,5 +104,13 @@ tasks.jar {
             "FMLCorePlugin" to "gg.essential.ad.asm.EssentialAdCoreMod",
             "FMLCorePluginContainsFMLMod" to "Yes",
         )
+    }
+}
+
+publishing {
+    publications {
+        named<MavenPublication>("maven") {
+            artifactId = "ad-$platform"
+        }
     }
 }
