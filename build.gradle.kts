@@ -51,7 +51,6 @@ dependencies {
         }
 
         modImplementation(include(fabricApi.module("fabric-api-base", fabricApiVersion))!!)
-        modImplementation(include(fabricApi.module("fabric-resource-loader-v0", fabricApiVersion))!!)
         modImplementation(include(fabricApi.module("fabric-screen-api-v1", fabricApiVersion))!!)
     }
 
