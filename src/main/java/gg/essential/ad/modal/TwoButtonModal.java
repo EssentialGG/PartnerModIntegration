@@ -54,7 +54,7 @@ public class TwoButtonModal extends Modal {
 
     public static TwoButtonModal removeAds() {
         return new TwoButtonModal(
-            "Do you want to remove all\n'Get Essential' Buttons?",
+            "Do you want to remove all\n'Get Essential' buttons?",
             (x, y, width) -> new ModalButton(x, y, width, ButtonColor.GRAY, "No", () -> {
                 ModalManager.INSTANCE.setModal(null);
             }),
