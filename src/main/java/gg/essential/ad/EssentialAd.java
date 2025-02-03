@@ -96,6 +96,8 @@ public class EssentialAd {
         int width = screen.width;
         int height = screen.height;
 
+        int buttonSpacing = 4;
+
         ResourceLocation texture;
         String tooltip;
         int x;
@@ -108,12 +110,12 @@ public class EssentialAd {
             GuiButton multiplayerButton = UButton.findButton(buttonList, MAIN_MENU_BUTTONS);
 
             if (multiplayerButton != null) {
-                x = UButton.getX(multiplayerButton) + UButton.getWidth(multiplayerButton) + 4;
+                x = UButton.getX(multiplayerButton) + UButton.getWidth(multiplayerButton) + buttonSpacing;
                 y = UButton.getY(multiplayerButton);
                 index = buttonList.indexOf(multiplayerButton) + 1;
             } else {
                 // Fallback, position using vanilla positioning
-                x = width / 2 + 100 + 4;
+                x = width / 2 + 100 + buttonSpacing;
                 y = height / 4 + 48 + 24;
             }
         } else if (screen instanceof GuiIngameMenu) {
@@ -130,12 +132,12 @@ public class EssentialAd {
             GuiButton reportBugs = UButton.findButton(buttonList, PAUSE_MENU_BUTTONS);
 
             if (reportBugs != null) {
-                x = UButton.getX(reportBugs) + UButton.getWidth(reportBugs) + 4;
+                x = UButton.getX(reportBugs) + UButton.getWidth(reportBugs) + buttonSpacing;
                 y = UButton.getY(reportBugs);
                 index = buttonList.indexOf(reportBugs) + 1;
             } else {
                 // Fallback, position using vanilla positioning
-                x = width / 2 + 100 + 4;
+                x = width / 2 + 100 + buttonSpacing;
                 y = height / 4 + 72 - 16;
             }
         } else {
