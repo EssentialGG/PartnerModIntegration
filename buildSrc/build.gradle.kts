@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     implementation("com.google.code.gson:gson:2.11.0")
-    implementation("gg.essential:essential-gradle-toolkit:0.6.4")
+    implementation("gg.essential:essential-gradle-toolkit:0.6.5")
 }
 
 kotlin {

@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+//#if MC>=12102
+//$$ import net.minecraft.client.gl.ShaderProgramKeys;
+//$$ import net.minecraft.client.render.RenderLayer;
+//#endif
+
 //#if MC>=11700
 //$$ import net.minecraft.client.render.GameRenderer;
 //$$ import net.minecraft.client.render.VertexFormat;
@@ -57,6 +62,9 @@ public class Draw {
     }
 
     public void rect(int left, int top, int right, int bottom, int color) {
+        //#if MC>=12000
+        //$$ drawContext.draw(); // flush vanilla buffer
+        //#endif
         //#if MC>=11600
         //$$ // FIXME: cleanup
         //#if MC>=12000
@@ -77,7 +85,9 @@ public class Draw {
         //$$ RenderSystem.disableTexture();
         //#endif
         //$$ RenderSystem.defaultBlendFunc();
-        //#if MC>=11700
+        //#if MC>=12102
+        //$$ RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
+        //#elseif MC>=11700
         //$$ RenderSystem.setShader(GameRenderer::getPositionColorShader);
         //#endif
         //#if MC>=12100
@@ -127,6 +137,9 @@ public class Draw {
     }
 
     public void texturedRect(ResourceLocation texture, int x, int y, int width, int height, int u, int v, int textureWidth, int textureHeight, int color) {
+        //#if MC>=12102
+        //$$ drawContext.drawTexture(RenderLayer::getGuiTextured, texture, x, y, u, v, width, height, textureWidth, textureHeight, color);
+        //#else
         float red = ((color >> 16) & 0xFF) / 255f;
         float green = ((color >> 8) & 0xFF) / 255f;
         float blue = (color & 0xFF) / 255f;
@@ -148,6 +161,7 @@ public class Draw {
         //#endif
         //#if MC>=11903
         //$$ RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+        //#endif
         //#endif
     }
 

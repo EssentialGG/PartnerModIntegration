@@ -7,6 +7,10 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.function.Consumer;
 
+//#if MC>=12102
+//$$ import net.minecraft.client.render.RenderLayer;
+//#endif
+
 //#if MC>=11600
 //$$ import com.mojang.blaze3d.matrix.MatrixStack;
 //#endif
@@ -74,7 +78,9 @@ public class AdButton extends GuiButton {
     //$$         int x = 0;
     //$$         if (this.isHovered()) x += this.width;
     //$$
-            //#if MC>=12000
+            //#if MC>=12102
+            //$$ context.drawTexture(RenderLayer::getGuiTextured, texture, this.getX(), this.getY(), x, 0, width, height, width * 2, height);
+            //#elseif MC>=12000
             //$$ context.drawTexture(texture, this.getX(), this.getY(), 0, x, 0, width, height, width * 2, height);
             //#elseif MC>=11903
             //$$ drawTexture(matrixStack, this.getX(), this.getY(), 0, x, 0, width, height, width * 2, height);

@@ -47,6 +47,7 @@ dependencies {
             12004 -> "0.97.1+1.20.4"
             12006 -> "0.100.4+1.20.6"
             12100 -> "0.100.4+1.21"
+            12102 -> "0.106.1+1.21.2"
             else -> error("Unable to determine fabric api version")
         }
 
