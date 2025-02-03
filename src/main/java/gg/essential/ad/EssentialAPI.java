@@ -1,6 +1,7 @@
 package gg.essential.ad;
 
 import gg.essential.ad.data.AdData;
+import gg.essential.ad.loader.EssentialAdLoader;
 import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedReader;
@@ -20,7 +21,7 @@ public class EssentialAPI {
     );
     private static final String AD_DATA_URL = API_BASE_URL + "/v1/mod-partner";
 
-    private static final String USER_AGENT = "Essential Ad (1.0.0)"; // fixme dynamic version
+    private static final String USER_AGENT = "EssentialAd/" + EssentialAdLoader.OUR_VERSION + " (" + EssentialAdLoader.OUR_PKG + ")";
 
     private static final Path OVERRIDE_FILE = AdConfig.CONFIG_FOLDER.resolve("data.override.json");
 

@@ -26,7 +26,7 @@ public class EssentialAdLoader {
     private static final boolean VERBOSE = Boolean.getBoolean("essentialad.loader.verbose");
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final String OUR_PKG;
+    public static final String OUR_PKG;
     static {
         String name = EssentialAdLoader.class.getName();
         OUR_PKG = name.substring(0, name.length() - ".loader.EssentialAdLoader".length());
@@ -37,7 +37,7 @@ public class EssentialAdLoader {
     private static final String PROPOSED_VERSION_KEY = COMMON_PACKAGE + ".proposedVersion";
     private static final String ACTIVE_VERSION_KEY = COMMON_PACKAGE + ".activeVersion";
 
-    private static final String OUR_VERSION;
+    public static final String OUR_VERSION;
     static {
         try (InputStream in = EssentialAdLoader.class.getResourceAsStream("version.txt")) {
             if  (in == null) throw new RuntimeException("Failed to find version.txt");
