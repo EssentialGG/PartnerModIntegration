@@ -19,8 +19,6 @@ import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ListIterator;
 import java.util.Objects;
 
@@ -35,7 +33,6 @@ public class EssentialAdClassTransformer implements IClassTransformer {
     private static final String ModalManager = PKG + "/modal/ModalManager";
     private static final String DrawEvent = PKG + "/modal/ModalManager$DrawEvent";
 
-    // fixme: cleanup, port to prod
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
         if (transformedName.equals("net.minecraft.client.Minecraft")) {
@@ -130,12 +127,6 @@ public class EssentialAdClassTransformer implements IClassTransformer {
 
             ClassWriter writer = new ClassWriter(0);
             classNode.accept(writer);
-//            byte[] bytes = writer.toByteArray();
-//            try {
-//                Files.write(Paths.get("out.class"), bytes);
-//            } catch (Exception e) {
-//                throw  new RuntimeException(e);
-//            }
             return writer.toByteArray();
         }
         return basicClass;
