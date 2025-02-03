@@ -3,7 +3,7 @@
   "compatibilityLevel": "JAVA_8",
   "package": "gg.essential.ad.mixins",
   "plugin": "gg.essential.ad.MixinPlugin",
-  "mixins": [
+  "client": [
     "Mixin_Init",
     "MouseHelperAccessor",
     "Mixin_Screen_OverrideMousePosition"
