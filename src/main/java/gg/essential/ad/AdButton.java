@@ -113,8 +113,7 @@ public class AdButton extends GuiButton {
             draw.texturedRect(texture, this.x, this.y, this.width, this.height, x, 0, this.width * 2, this.height);
 
             if (hovered) {
-                //fixme depth
-                drawTooltip(draw, mc, TooltipPosition.ABOVE);
+                Draw.deferred(it -> drawTooltip(it, mc, TooltipPosition.ABOVE));
             }
         }
     }

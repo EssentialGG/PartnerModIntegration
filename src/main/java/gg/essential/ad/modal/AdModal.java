@@ -137,7 +137,7 @@ public class AdModal extends Modal {
 
                     if (draw.hovered(textX, textY, withTooltipWidth, 10)) {
                         int finalX = textX;
-                        draw.deferred(d -> Tooltip.drawTooltip(d, this.tooltip, Tooltip.Position.BELOW, finalX, textY, withTooltipWidth, 10));
+                        Draw.deferred(d -> Tooltip.drawTooltip(d, this.tooltip, Tooltip.Position.BELOW, finalX, textY, withTooltipWidth, 10));
                     }
 
                     textX += withTooltipWidth;

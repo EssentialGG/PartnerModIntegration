@@ -49,7 +49,7 @@ public class ModalButton {
         }
 
         if (tooltip != null && !tooltip.isEmpty() && hovered) {
-            draw.deferred(d -> Tooltip.drawTooltip(d, tooltip, Tooltip.Position.ABOVE, x, y, width, height));
+            Draw.deferred(d -> Tooltip.drawTooltip(d, tooltip, Tooltip.Position.ABOVE, x, y, width, height));
         }
     }
 

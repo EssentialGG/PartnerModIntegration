@@ -86,6 +86,19 @@ public class ModalManager {
         //$$ MatrixStack stack
         //#endif
     ) {
+        Draw draw = new Draw(
+            (int) UMouse.getScaledX(),
+            (int) UMouse.getScaledY()
+            //#if MC>=11600
+            //$$ , stack
+            //#endif
+        );
+        Draw.flushDeferred(draw);
+        handleDraw(draw);
+        Draw.flushDeferred(draw);
+    }
+
+    private void handleDraw(Draw draw) {
         if (currentModal == null) return;
 
         resetMousePosition();
@@ -97,16 +110,7 @@ public class ModalManager {
             currentModal.init();
         }
 
-        Draw draw = new Draw(
-            (int) UMouse.getScaledX(),
-            (int) UMouse.getScaledY()
-            //#if MC>=11600
-            //$$ , stack
-            //#endif
-        );
-
         currentModal.draw(draw);
-        draw.flushDeferred();
     }
 
     private boolean handleMouseClick(double mouseX, double mouseY) {

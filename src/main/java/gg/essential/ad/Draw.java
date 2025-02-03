@@ -36,7 +36,7 @@ public class Draw {
     //$$ public final MatrixStack matrixStack;
     //#endif
 
-    private final List<Consumer<Draw>> deferred = new ArrayList<>();
+    private static final List<Consumer<Draw>> deferred = new ArrayList<>();
 
     public Draw(
             int mouseX,
@@ -186,13 +186,13 @@ public class Draw {
         return hovered(mouseX, mouseY, x, y, width, height);
     }
 
-    public void deferred(Consumer<Draw> drawer) {
+    public static void deferred(Consumer<Draw> drawer) {
         deferred.add(drawer);
     }
 
-    public void flushDeferred() {
+    public static void flushDeferred(Draw draw) {
         for (Consumer<Draw> drawConsumer : deferred) {
-            drawConsumer.accept(this);
+            drawConsumer.accept(draw);
         }
         deferred.clear();
     }
