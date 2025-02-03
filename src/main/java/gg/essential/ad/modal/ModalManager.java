@@ -64,6 +64,9 @@ public class ModalManager {
     }
 
     private void resetMousePosition() {
+        if (mousePosition == null) {
+            return; // can happen on screens which do not call `super.render`, e.g. TitleScreen with FancyMenu
+        }
         GlobalMouseOverride.set(mousePosition.originalMouseX, mousePosition.originalMouseY);
         mousePosition = null;
     }
