@@ -79,8 +79,11 @@ public class AdButton extends GuiButton {
             //$$ context.drawTexture(texture, this.getX(), this.getY(), 0, x, 0, width, height, width * 2, height);
             //#elseif MC>=11903
             //$$ drawTexture(matrixStack, this.getX(), this.getY(), 0, x, 0, width, height, width * 2, height);
+            //#elseif MC>=11800
+            //$$ drawTexture(matrixStack, this.x, this.y, 0, x, 0, width, height, width * 2, height);
             //#else
-            //$$ blit(matrixStack, this.x, this.y, 0, x, 0, width, height, width * 2, height);
+            //$$ // Note: textureWidth/Height are flipped in MC code for this overload until 1.18
+            //$$ blit(matrixStack, this.x, this.y, 0, x, 0, width, height, height, width * 2);
             //#endif
     //$$         if (this.isHovered()) {
                 //#if MC>=12000
