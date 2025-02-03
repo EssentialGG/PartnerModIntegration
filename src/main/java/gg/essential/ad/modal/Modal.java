@@ -62,8 +62,15 @@ public abstract class Modal
         for (ModalButton button : buttonList) {
             if (Draw.hovered(mouseX, mouseY, button.x, button.y, button.width, button.height)) {
                 button.onClick();
+                return;
             }
         }
+        // Anywhere on the modal
+        if (Draw.hovered(mouseX, mouseY, startX, startY, width, height)) {
+            return;
+        }
+        // Clicked on the modal background, close the modal
+        ModalManager.INSTANCE.setModal(null);
     }
 
     public void keyPressed(int key) {
