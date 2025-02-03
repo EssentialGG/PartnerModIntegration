@@ -133,27 +133,56 @@ public class AdButton extends GuiButton {
         int buttonX = UButton.getX(this);
         int buttonY = UButton.getY(this);
 
+        int windowPadding = 2; // Note: actual padding is one less because of tooltip outline
+
         int x;
         int y;
         switch (position) {
             case ABOVE:
                 x = buttonX + this.width / 2 - width / 2;
                 y = buttonY - height - 5;
+                if (y < windowPadding) {
+                    position = TooltipPosition.BELOW;
+                    y = buttonY + this.height + 5;
+                }
                 break;
             case BELOW:
                 x = buttonX + this.width / 2 - width / 2;
                 y = buttonY + this.height + 5;
+                if (y + height > UResolution.getScaledHeight() - windowPadding) {
+                    position = TooltipPosition.ABOVE;
+                    y = buttonY - height - 5;
+                }
                 break;
             case LEFT:
                 x = buttonX - width - 5;
                 y = buttonY + this.height / 2 - height / 2;
+                if (x < windowPadding) {
+                    position = TooltipPosition.RIGHT;
+                    x = buttonX + this.width + 5;
+                }
                 break;
             case RIGHT:
                 x = buttonX + this.width + 5;
                 y = buttonY + this.height / 2 - height / 2;
+                if (x + width > UResolution.getScaledWidth() - windowPadding) {
+                    position = TooltipPosition.LEFT;
+                    x = buttonX - width - 5;
+                }
                 break;
             default:
                 throw new IllegalStateException();
+        }
+
+        switch (position) {
+            case ABOVE:
+            case BELOW:
+                x = Math.max(windowPadding, Math.min(x, UResolution.getScaledWidth() - windowPadding - width));
+                break;
+            case LEFT:
+            case RIGHT:
+                y = Math.max(windowPadding, Math.min(y, UResolution.getScaledHeight() - windowPadding - height));
+                break;
         }
 
         int centerX = x + width / 2;
@@ -168,6 +197,10 @@ public class AdButton extends GuiButton {
             draw.string(line, centerX - lineWidth / 2, textY + 3, -1);
             textY += 10;
         }
+
+        // The notch is always centered on the button, regardless of how the tooltip is offset
+        centerX = buttonX + this.width / 2;
+        centerY = buttonY + this.height / 2;
 
         for (int i = 0; i <= 2; i++) {
             switch (position) {
