@@ -68,10 +68,13 @@ public class EssentialAd {
         //#endif
     ));
 
-    private final CompletableFuture<AdData> adDataFuture = EssentialAPI.fetchAdData();
+    private CompletableFuture<AdData> adDataFuture = null;
     private List<AdData.PartnerMod> partnerMods = null;
 
     public EssentialAd() {
+        if (EssentialUtil.isEssentialOrContainerLoaded()) return;
+        if (CONFIG.shouldHideButtons()) return;
+
         //#if FORGE
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(ModalManager.INSTANCE);
@@ -79,6 +82,8 @@ public class EssentialAd {
         //$$ ScreenEvents.AFTER_INIT.register(this::afterScreenInit);
         //$$ ModalManager.INSTANCE.registerEvents();
         //#endif
+
+        adDataFuture = EssentialAPI.fetchAdData();
     }
 
     private void createButton(
