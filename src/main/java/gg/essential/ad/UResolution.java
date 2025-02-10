@@ -24,8 +24,6 @@ public class UResolution {
         //#endif
     }
 
-    // TODO: cache SR
-
     public static int getScaledWidth() {
         //#if MC>11600
         //$$ return Minecraft.getInstance().getMainWindow().getScaledWidth();
