@@ -159,7 +159,7 @@ public class Draw {
         //#else
         Gui.drawModalRectWithCustomSizedTexture(x, y, u, v, width, height, textureWidth, textureHeight);
         //#endif
-        //#if MC>=11903
+        //#if MC>=11700
         //$$ RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         //#endif
         //#endif
