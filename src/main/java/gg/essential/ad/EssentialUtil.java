@@ -10,13 +10,29 @@ import java.nio.file.Paths;
 public class EssentialUtil {
 
     private static boolean installationCompleted = false;
-    private static Boolean isEssentiaLoaded = null;
+    private static Boolean isEssentialLoaded = null;
 
-    public static boolean isEssentialLoaded() {
-        if (isEssentiaLoaded == null) {
-            isEssentiaLoaded = ModLoaderUtil.isModLoaded("essential");
+    public static boolean isEssentialOrContainerLoaded() {
+        if (isEssentialLoaded == null) {
+            isEssentialLoaded = ModLoaderUtil.isModLoaded("essential") || isEssentialContainerLoaded();
         }
-        return isEssentiaLoaded;
+        return isEssentialLoaded;
+    }
+
+    // From: https://github.com/EssentialGG/EssentialDev/blob/8c17244b8ad2e4058578487a16018b17376ba150/src/main/java/gg/essential/util/EssentialContainerUtil.java#L18-L31
+    private static boolean isEssentialContainerLoaded() {
+        //#if FABRIC
+        //$$ return net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("essential-container");
+        //#elseif MC>=11700
+        //$$ return cpw.mods.modlauncher.Launcher.INSTANCE.findLayerManager()
+        //$$     .flatMap(it -> it.getLayer(cpw.mods.modlauncher.api.IModuleLayerManager.Layer.SERVICE))
+        //$$     .map(ModuleLayer::modules)
+        //$$     .orElseGet(java.util.Collections::emptySet)
+        //$$     .stream()
+        //$$     .anyMatch(it -> it.getClassLoader().getResource("essential_container_marker.txt") != null);
+        //#else
+        return EssentialUtil.class.getClassLoader().getResource("essential_container_marker.txt") != null;
+        //#endif
     }
 
     public static boolean installationCompleted() {

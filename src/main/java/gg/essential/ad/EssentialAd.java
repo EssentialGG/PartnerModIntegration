@@ -90,7 +90,7 @@ public class EssentialAd {
         //#endif
         BiConsumer<GuiButton, Integer> adder
     ) {
-        if (EssentialUtil.isEssentialLoaded()) return;
+        if (EssentialUtil.isEssentialOrContainerLoaded()) return;
         if (CONFIG.shouldHideButtons()) return;
 
         int width = screen.width;
