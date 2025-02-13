@@ -42,7 +42,13 @@ public class EssentialUtil {
     public static boolean installContainer() {
         try {
             Path destination = Paths.get("mods", "essential-container.jar");
-            if (Files.exists(destination)) throw new RuntimeException("fix me!"); // fixme filename conflicts
+            if (Files.exists(destination)) {
+                int i = 1;
+                do {
+                    destination = Paths.get("mods", "essential-container-" + i + ".jar");
+                    i++;
+                } while (Files.exists(destination));
+            }
             try (InputStream is = EssentialUtil.class.getResourceAsStream("container.jarx")) {
                 if (is == null) throw new IllegalStateException("No bundled container jar found!");
                 Files.copy(is, destination);
