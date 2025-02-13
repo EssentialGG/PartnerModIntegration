@@ -19,5 +19,5 @@ loaded from the API.
 
 The entire API response can be overridden by placing a `data.override.json` file in
 the `.minecraft/config/essentialad/` folder. This allows adding extra partner mods for testing.
-Use the current [production](https://api.essential.gg/v1/mod-partner/modal) or
-[staging](https://api.lon-dev.modcore.dev/v1/mod-partner/modal) API response as a starting point.
+Use the current [production](https://api.essential.gg/v1/mod-partner) or
+[staging](https://api.lon-dev.modcore.dev/v1/mod-partner) API response as a starting point.
