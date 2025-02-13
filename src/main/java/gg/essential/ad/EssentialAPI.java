@@ -27,13 +27,15 @@ public class EssentialAPI {
     private static final String USER_AGENT = "EssentialAd/" + EssentialAdLoader.OUR_VERSION + " (" + EssentialAdLoader.OUR_PKG + ")";
 
     private static final Path API_OVERRIDE_FILE = AdConfig.CONFIG_FOLDER.resolve("data.override.json");
-    private static final Path MODAL_OVERRIDE_FILE = AdConfig.CONFIG_FOLDER.resolve("mod-partner-modal-metadata.json");
+    private static final Path MODAL_OVERRIDE_FOLDER = AdConfig.CONFIG_FOLDER.resolve("override");
+    private static final Path MODAL_OVERRIDE_FILE = MODAL_OVERRIDE_FOLDER.resolve("mod-partner-modal-metadata.json");
 
     public static CompletableFuture<AdData> fetchAdData() {
         CompletableFuture<AdData> future = new CompletableFuture<>();
         CompletableFuture.runAsync(() -> {
             try {
                 if (Files.exists(API_OVERRIDE_FILE)) {
+                    EssentialAd.LOGGER.info("Using API override file");
                     try (BufferedReader reader = Files.newBufferedReader(API_OVERRIDE_FILE)) {
                         AdData data = EssentialAd.GSON.fromJson(reader, AdData.class);
                         future.complete(data);
@@ -56,11 +58,12 @@ public class EssentialAPI {
                 AdData data = EssentialAd.GSON.fromJson(response, AdData.class);
 
                 if (Files.exists(MODAL_OVERRIDE_FILE)) {
+                    EssentialAd.LOGGER.info("Using modal override file");
                     try (BufferedReader reader = Files.newBufferedReader(MODAL_OVERRIDE_FILE)) {
                         ModalData modalData = EssentialAd.GSON.fromJson(reader, ModalData.class);
                         // Replace image paths with base64 representation
                         for (ModalData.Feature feature : modalData.getFeatures()) {
-                            Path iconPath = AdConfig.CONFIG_FOLDER.resolve(feature.getIcon());
+                            Path iconPath = MODAL_OVERRIDE_FOLDER.resolve(feature.getIcon());
                             try {
                                 byte[] bytes = Files.readAllBytes(iconPath);
                                 String base64 = Base64.getEncoder().encodeToString(bytes);
