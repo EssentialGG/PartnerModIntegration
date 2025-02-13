@@ -42,7 +42,7 @@ public class TwoButtonModal extends Modal {
 
     public static TwoButtonModal postInstall() {
         return new TwoButtonModal(
-            "Essential will install the next time\nyou launch the game.",
+            "Essential Mod will install the next time\nyou launch the game.",
             (x, y, width) -> {
                 ModalButton button = new ModalButton(x, y, width, ButtonColor.GRAY, "Quit & Install", EssentialUtil::shutdown);
                 button.setTooltip("This will close your game!");
@@ -54,7 +54,7 @@ public class TwoButtonModal extends Modal {
 
     public static TwoButtonModal removeAds() {
         return new TwoButtonModal(
-            "Do you want to remove all\n'Get Essential' buttons?",
+            "Do you want to remove all\n'Get Essential Mod' buttons?",
             (x, y, width) -> new ModalButton(x, y, width, ButtonColor.GRAY, "No", () -> {
                 ModalManager.INSTANCE.setModal(null);
             }),

@@ -110,7 +110,7 @@ public class EssentialAd {
         int index = buttonList.size();
         if (screen instanceof GuiMainMenu) {
             texture = AdButton.TEXTURE_MAIN_MENU;
-            tooltip = "Enhanced Minecraft\nfeatures, with Essential";
+            tooltip = "Enhanced Minecraft\nfeatures, with Essential Mod";
 
             GuiButton multiplayerButton = UButton.findButton(buttonList, MAIN_MENU_BUTTONS);
 

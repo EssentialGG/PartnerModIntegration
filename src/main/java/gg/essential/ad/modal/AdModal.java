@@ -186,22 +186,22 @@ public class AdModal extends Modal {
         String tooltip;
         switch (partnerMods.size()) {
             case 0:
-                tooltip = "Hmmm, it seems like you don't\nhave any partner mods installed...";
+                tooltip = "Partnered mods receive\na share of purchases";
                 break;
             case 1:
-                tooltip = "%s\nand many more!";
+                tooltip = "%s and other\npartnered mods receive\na share of purchases";
                 break;
             case 2:
-                tooltip = "%s, %s,\nand many more!";
+                tooltip = "%s, %s,\nand other partnered mods\nreceive a share of purchases";
                 break;
             case 3:
-                tooltip = "%s, %s,\n%s, and many more!";
+                tooltip = "%s, %s,\n%s, and other partnered mods\nreceive a share of purchases";
                 break;
             case 4:
-                tooltip = "%s, %s,\n%s, %s,\nand many more!";
+                tooltip = "%s, %s,\n%s, %s,\nand other partnered mods\nreceive a share of purchases";
                 break;
             case 5:
-                tooltip = "%s, %s,\n%s, %s,\n%s, and many more!";
+                tooltip = "%s, %s,\n%s, %s,\n%s, and other partnered mods\nreceive a share of purchases";
                 break;
             default:
                 throw new IllegalStateException();
