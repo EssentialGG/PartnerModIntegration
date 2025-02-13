@@ -85,17 +85,17 @@ public class AdModal extends Modal {
 
         Minecraft mc = Minecraft.getMinecraft();
 
-        // Icon Block (94px wide, 19px high)
+        // Icon Block (98px wide, 19px high)
         // shadow
-        draw.rect(centreX - 47 + 1, startY + 20 + 1, centreX + 47 + 1, startY + 20 + 19 + 1, 0xFF000000);
+        draw.rect(centreX - 49 + 1, startY + 20 + 1, centreX + 49 + 1, startY + 20 + 19 + 1, 0xFF000000);
         // background
-        draw.rect(centreX - 47, startY + 20, centreX + 47, startY + 20 + 19, 0xFF1b3151);
+        draw.rect(centreX - 49, startY + 20, centreX + 49, startY + 20 + 19, 0xFF1b3151);
         // icon texture
-        draw.texturedRect(ESSENTIAL_LOGO, centreX - 29, startY + 20 + 7, 58, 6, 0, 0, 58, 6);
+        draw.texturedRect(ESSENTIAL_LOGO, centreX - 40, startY + 20 + 7, 80, 6, 0, 0, 80, 6);
 
         // Tagline
         draw.multilineCentredString(modalData.getSubtitle("en_us"),
-            centreX, startY + 49, 10, 0xFF999999, 0xFF000000
+            centreX, startY + 49, 10, 0xFFBFBFBF, 0xFF000000
         );
 
         // Features
@@ -105,7 +105,7 @@ public class AdModal extends Modal {
                 maxWidth = Math.max(Font.getStringWidth(feature.getDisplayedText()), maxWidth);
             }
 
-            int featureX = centreX - (maxWidth + 14) / 2;
+            int featureX = centreX - (maxWidth + 15) / 2;
 
             int featureY = startY + featuresOffset;
 
@@ -114,7 +114,7 @@ public class AdModal extends Modal {
                 draw.texturedRect(location, featureX + 1, featureY + 1, 10, 10, 0, 0, 10, 10, 0xFF000000);
                 draw.texturedRect(location, featureX, featureY, 10, 10, 0, 0, 10, 10, 0xFF0a82fd);
 
-                int textX = featureX + 14;
+                int textX = featureX + 15;
                 int textY = featureY + 1;
 
                 String text = feature.text;

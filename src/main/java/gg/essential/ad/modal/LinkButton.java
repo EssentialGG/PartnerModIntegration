@@ -23,7 +23,7 @@ public class LinkButton extends ModalButton {
         draw.texturedRect(ICON, x + textWidth + 5, y + 2, 5, 5, 0, 0, 5, 5, 0xFF000000);
         draw.texturedRect(ICON, x + textWidth + 4, y + 1, 5, 5, 0, 0, 5, 5, color);
 
-        draw.rect(x, y + 8, x + width, y + 9, color);
-        draw.rect(x + 1, y + 9, x + width + 1, y + 10, 0xFF000000);
+        draw.rect(x, y + 8, x + textWidth, y + 9, color);
+        draw.rect(x + 1, y + 9, x + textWidth + 1, y + 10, 0xFF000000);
     }
 }
