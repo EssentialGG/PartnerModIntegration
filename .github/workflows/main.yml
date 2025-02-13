@@ -1,0 +1,45 @@
+name: Build & Publish
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: |
+            8
+            16
+            17
+            21
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.gradle/wrapper
+          key: gradle-wrapper-${{ hashFiles('**/gradle-wrapper.properties') }}
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            **/loom-cache
+          key: gradle-caches-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle.properties', 'gradle/*.versions.toml') }}
+          restore-keys: |
+            gradle-caches-${{ hashFiles('**/*.gradle*') }}
+            gradle-caches-
+
+      - name: Build
+        run: ./gradlew build --stacktrace
+
+      - name: Publish
+        if: startsWith(github.ref, 'refs/tags/v') # eg, v1.0.0
+        run: ./gradlew publish --stacktrace
+        env:
+          ORG_GRADLE_PROJECT_nexus_user: ${{ secrets.NEXUS_USER }}
+          ORG_GRADLE_PROJECT_nexus_password: ${{ secrets.NEXUS_PASSWORD }}
