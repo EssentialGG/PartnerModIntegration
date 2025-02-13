@@ -6,6 +6,7 @@ import gg.essential.ad.loader.EssentialAdLoader;
 import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -14,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class EssentialAPI {
@@ -25,6 +27,8 @@ public class EssentialAPI {
     private static final String AD_DATA_URL = API_BASE_URL + "/v1/mod-partner";
 
     private static final String USER_AGENT = "EssentialAd/" + EssentialAdLoader.OUR_VERSION + " (" + EssentialAdLoader.OUR_PKG + ")";
+
+    private static final Path API_CACHE_FILE = AdConfig.CONFIG_FOLDER.resolve("data.cache.json");
 
     private static final Path API_OVERRIDE_FILE = AdConfig.CONFIG_FOLDER.resolve("data.override.json");
     private static final Path MODAL_OVERRIDE_FOLDER = AdConfig.CONFIG_FOLDER.resolve("override");
@@ -40,6 +44,8 @@ public class EssentialAPI {
                         AdData data = EssentialAd.GSON.fromJson(reader, AdData.class);
                         future.complete(data);
                         return;
+                    } catch (Exception e) {
+                        EssentialAd.LOGGER.error("Failed to load api override", e);
                     }
                 }
 
@@ -55,10 +61,16 @@ public class EssentialAPI {
                     response = IOUtils.toString(is, StandardCharsets.UTF_8);
                 }
 
+                try (BufferedWriter writer = Files.newBufferedWriter(API_CACHE_FILE)) {
+                    writer.write(response);
+                } catch (Exception e) {
+                    EssentialAd.LOGGER.error("Failed to write cached response", e);
+                }
+
                 AdData data = EssentialAd.GSON.fromJson(response, AdData.class);
 
                 if (Files.exists(MODAL_OVERRIDE_FILE)) {
-                    EssentialAd.LOGGER.info("Using modal override file");
+                    EssentialAd.LOGGER.info("Using modal override folder");
                     try (BufferedReader reader = Files.newBufferedReader(MODAL_OVERRIDE_FILE)) {
                         ModalData modalData = EssentialAd.GSON.fromJson(reader, ModalData.class);
                         // Replace image paths with base64 representation
@@ -74,15 +86,42 @@ public class EssentialAPI {
                         }
 
                         data = new AdData(modalData, data.getPartneredMods());
+                    } catch (Exception e) {
+                        EssentialAd.LOGGER.error("Failed to load modal override", e);
                     }
                 }
 
                 future.complete(data);
             } catch (Exception e) {
                 EssentialAd.LOGGER.error("Failed to fetch modal data", e);
-                future.completeExceptionally(e);
+
+                try {
+                    future.complete(getFallbackData());
+                } catch (Exception e2) {
+                    EssentialAd.LOGGER.error("Failed to load fallback modal data", e2);
+                    future.completeExceptionally(e2);
+                }
             }
         });
         return future;
+    }
+
+    private static AdData getFallbackData() throws IOException {
+        if (Files.exists(API_CACHE_FILE)) {
+            try (BufferedReader reader = Files.newBufferedReader(API_CACHE_FILE)) {
+                AdData data = EssentialAd.GSON.fromJson(reader, AdData.class);
+                EssentialAd.LOGGER.info("Loaded cached response");
+                return data;
+            } catch (Exception e) {
+                EssentialAd.LOGGER.error("Failed to load cached response", e);
+            }
+        }
+
+        try (InputStream is = EssentialAd.class.getResourceAsStream("assets/data.fallback.json")) {
+            Objects.requireNonNull(is, "Fallback data missing!");
+            AdData data = EssentialAd.GSON.fromJson(IOUtils.toString(is, StandardCharsets.UTF_8), AdData.class);
+            EssentialAd.LOGGER.info("Loaded fallback data");
+            return data;
+        }
     }
 }

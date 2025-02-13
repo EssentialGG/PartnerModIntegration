@@ -69,7 +69,7 @@ public class AdModal extends Modal {
             if (success) {
                 ModalManager.INSTANCE.setModal(TwoButtonModal.postInstall());
             } else {
-                ModalManager.INSTANCE.setModal(TwoButtonModal.errorModal());
+                ModalManager.INSTANCE.setModal(TwoButtonModal.installFailed());
             }
         }));
 

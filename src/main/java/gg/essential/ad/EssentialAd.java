@@ -198,7 +198,8 @@ public class EssentialAd {
                 try {
                     data = adDataFuture.join();
                 } catch (CompletionException e) {
-                    ModalManager.INSTANCE.setModal(TwoButtonModal.errorModal()); // fixme, replace with better wording
+                    // This should only happen if the fallback data fails to load, which shouldn't happen.
+                    ModalManager.INSTANCE.setModal(TwoButtonModal.installFailed());
                     return;
                 }
                 ModalManager.INSTANCE.setModal(new AdModal(data.getModal(), getPartnerMods(data)));

@@ -66,14 +66,14 @@ public class TwoButtonModal extends Modal {
         );
     }
 
-    public static TwoButtonModal errorModal() {
+    public static TwoButtonModal installFailed() {
         return new TwoButtonModal(
-            "Something went wrong\ninstalling Essential.",
-            (x, y, width) -> new ModalButton(x, y, width, ButtonColor.BLUE, "Install Manually", () -> {
-                UDesktop.browse("https://essential.gg");
+            "Essential Mod failed to install.\nSomething went wrong.",
+            (x, y, width) -> new ModalButton(x, y, width, ButtonColor.GRAY, "Okay", () -> {
                 ModalManager.INSTANCE.setModal(null);
             }),
-            (x, y, width) -> new ModalButton(x, y, width, ButtonColor.GRAY, "Okay", () -> {
+            (x, y, width) -> new ModalButton(x, y, width, ButtonColor.BLUE, "Download", () -> {
+                UDesktop.browse("https://essential.gg/download");
                 ModalManager.INSTANCE.setModal(null);
             })
         );
