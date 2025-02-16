@@ -60,7 +60,7 @@ public class AdModal extends Modal {
         height += 17;
         setDimensions(194, height);
 
-        buttonList.add(new LinkButton(centreX - (Font.getStringWidth("Learn more") + 10) / 2, startY + learnMoreOffset, "Learn More", () -> {
+        buttonList.add(new LinkButton(centreX - (Font.getStringWidth("Learn more") + 10) / 2, startY + learnMoreOffset, "Learn more", () -> {
             UDesktop.browse(modalData.getLink("learn_more"));
         }));
 
@@ -91,7 +91,7 @@ public class AdModal extends Modal {
         // background
         draw.rect(centreX - 49, startY + 20, centreX + 49, startY + 20 + 19, 0xFF1b3151);
         // icon texture
-        draw.texturedRect(ESSENTIAL_LOGO, centreX - 40, startY + 20 + 7, 80, 6, 0, 0, 80, 6);
+        draw.texturedRect(ESSENTIAL_LOGO, centreX - 40, startY + 20 + 7, 80, 6, 0, 0, 80, 6, 0xFFE3F5FF);
 
         // Tagline
         draw.multilineCentredString(modalData.getSubtitle("en_us"),
