@@ -32,16 +32,12 @@ public class ModalButton {
     public void draw(Draw draw) {
         boolean hovered = draw.hovered(x, y, width, height);
 
+        // shadow
+        draw.rect(x + 1, y + 1, x + 1 + width, y + 1 + height, color.getShadowColor(hovered));
         // outline
-        draw.rect(x, y, x + width, y + height, hovered ? 0xFFe5e5e5 : 0xFF000000);
+        draw.rect(x, y, x + width, y + height, color.getHighlightColor(hovered));
         // main background
         draw.rect(x + 1, y + 1, x + width - 1, y + height - 1, color.getButtonColor(hovered));
-        // highlight
-        draw.rect(x + 1, y + 1, x + 2, y + height - 3, color.getHighlightColor(hovered));
-        draw.rect(x + 2, y + 1, x + width - 2, y + 2, color.getHighlightColor(hovered));
-        // shadow
-        draw.rect(x + 2, y + height - 3, x + width - 1, y + height - 1, color.getShadowColor(hovered));
-        draw.rect(x + width - 2, y + 2, x + width - 1, y + height - 3, color.getShadowColor(hovered));
 
         if (!text.isEmpty()) {
             int textX = x + width / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth(text) / 2;

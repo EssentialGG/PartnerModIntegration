@@ -3,30 +3,30 @@ package gg.essential.ad.modal;
 public class ButtonColor {
 
     public static final ButtonColor GRAY = new ButtonColor(
-        0xFF383838,
-        0xFF595959,
-        0xFF2B2B2B,
-        0xFF595959,
-        0xFF7F7F7F,
-        0xFF424242
+        0xFF323232,
+        0xFF5C5C5C,
+        0xFF000000,
+        0xFF474747,
+        0xFF757575,
+        0xFF000000
     );
 
     public static final ButtonColor BLUE = new ButtonColor(
-        0xFF274673,
-        0xFF507BBA,
-        0xFF1B3151,
-        0xFF164995,
-        0xFF3073D4,
-        0xFF0A2E62
+        0xFF223F69,
+        0xFF3671C7,
+        0xFF000000,
+        0xFF2A5695,
+        0xFF5490E8,
+        0xFF000000
     );
 
     public static final ButtonColor RED = new ButtonColor(
-        0xFF9F4444,
-        0xFFE96D6D,
         0xFF461F1F,
-        0xFFC02525,
-        0xFFE55252,
-        0xFF642626
+        0xFF8B3636,
+        0xFF000000,
+        0xFF642626,
+        0xFF9F4444,
+        0xFF000000
     );
 
     private final int buttonColor;
