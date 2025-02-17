@@ -68,7 +68,7 @@ public class TwoButtonModal extends Modal {
 
     public static TwoButtonModal installFailed() {
         return new TwoButtonModal(
-            "Essential Mod failed to install.\nSomething went wrong.",
+            "An issue occurred while installing\nEssential Mod. Download it from\nour website instead.",
             (x, y, width) -> new ModalButton(x, y, width, ButtonColor.GRAY, "Okay", () -> {
                 ModalManager.INSTANCE.setModal(null);
             }),
