@@ -44,7 +44,10 @@ public class TwoButtonModal extends Modal {
         return new TwoButtonModal(
             "Essential Mod will install the next time\nyou launch the game.",
             (x, y, width) -> {
-                ModalButton button = new ModalButton(x, y, width, ButtonColor.GRAY, "Quit & Install", EssentialUtil::shutdown);
+                ModalButton button = new ModalButton(x, y, width, ButtonColor.GRAY, "Quit & Install", () -> {
+                    ModalManager.INSTANCE.setModal(null);
+                    EssentialUtil.shutdown();
+                });
                 button.setTooltip("This will close your game!");
                 return button;
             },
