@@ -213,16 +213,16 @@ public class AdButton extends GuiButton {
                     draw.rect(centerX - (2 - i) - 1, y + height + i, centerX + (2 - i), y + height + i + 1, 0xFF232323);
                     break;
                 case BELOW:
-                    draw.rect(centerX - (2 - i) - 1, y - i - 1, centerX + (2 - i), y - i - 2, 0xFF000000);
-                    draw.rect(centerX - (2 - i) - 1, y - i, centerX + (2 - i), y - i - 1, 0xFF232323);
+                    draw.rect(centerX - (2 - i) - 1, y - i - 2, centerX + (2 - i), y - i - 1, 0xFF000000);
+                    draw.rect(centerX - (2 - i) - 1, y - i - 1, centerX + (2 - i), y - i, 0xFF232323);
                     break;
                 case LEFT:
                     draw.rect(x + width + i + 1, centerY - (2 - i) - 1, x + width + i + 2, centerY + (2 - i), 0xFF000000);
                     draw.rect(x + width + i, centerY - (2 - i) - 1, x + width + i + 1, centerY + (2 - i), 0xFF232323);
                     break;
                 case RIGHT:
-                    draw.rect(x - i - 1, centerY - (2 - i) - 1, x - i - 2, centerY + (2 - i), 0xFF000000);
-                    draw.rect(x - i, centerY - (2 - i) - 1, x - i - 1, centerY + (2 - i), 0xFF232323);
+                    draw.rect(x - i - 2, centerY - (2 - i) - 1, x - i - 1, centerY + (2 - i), 0xFF000000);
+                    draw.rect(x - i - 1, centerY - (2 - i) - 1, x - i, centerY + (2 - i), 0xFF232323);
                     break;
             }
         }

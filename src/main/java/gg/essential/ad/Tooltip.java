@@ -65,8 +65,8 @@ public class Tooltip {
                     draw.rect(x + width + i, centerY - (2 - i) - 1, x + width + i + 1, centerY + (2 - i), 0xFF232323);
                     break;
                 case RIGHT:
-                    draw.rect(x - i - 1, centerY - (2 - i) - 1, x - i - 2, centerY + (2 - i), 0xFF000000);
-                    draw.rect(x - i, centerY - (2 - i) - 1, x - i - 1, centerY + (2 - i), 0xFF232323);
+                    draw.rect(x - i - 2, centerY - (2 - i) - 1, x - i - 1, centerY + (2 - i), 0xFF000000);
+                    draw.rect(x - i - 1, centerY - (2 - i) - 1, x - i, centerY + (2 - i), 0xFF232323);
                     break;
             }
         }
