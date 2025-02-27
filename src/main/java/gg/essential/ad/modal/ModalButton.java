@@ -26,7 +26,7 @@ public class ModalButton {
     }
 
     public ModalButton(int x, int y, int width, ButtonColor color, String text, Runnable onClick) {
-        this(x, y, width, 20, color, text, onClick);
+        this(x, y, width, 19, color, text, onClick);
     }
 
     public void draw(Draw draw) {
@@ -41,7 +41,7 @@ public class ModalButton {
 
         if (!text.isEmpty()) {
             int textX = x + width / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth(text) / 2;
-            draw.string(text, textX, y + 6, 0xFFE5E5E5, 0x181818);
+            draw.string(text, textX, y + 6, 0xFFE5E5E5, 0xFF000000);
         }
 
         if (tooltip != null && !tooltip.isEmpty() && hovered) {
