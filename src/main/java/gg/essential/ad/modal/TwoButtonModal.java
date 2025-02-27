@@ -55,18 +55,28 @@ public class TwoButtonModal extends Modal {
         );
     }
 
-    public static TwoButtonModal removeAds() {
+    public static TwoButtonModal removeAds(AdModal adModal) {
+        boolean[] removed = new boolean[1];
         return new TwoButtonModal(
             "Do you want to remove all\n'Get Essential Mod' buttons?",
-            (x, y, width) -> new ModalButton(x, y, width, ButtonColor.GRAY, "No", () -> {
+            (x, y, width) -> new ModalButton(x, y, width, ButtonColor.GRAY, "Back", () -> {
                 ModalManager.INSTANCE.setModal(null);
             }),
-            (x, y, width) -> new ModalButton(x, y, width, ButtonColor.RED, "Yes", () -> {
+            (x, y, width) -> new ModalButton(x, y, width, ButtonColor.RED, "Remove", () -> {
                 EssentialAd.CONFIG.hideButtons();
+                removed[0] = true;
                 ModalManager.INSTANCE.setModal(null);
                 Minecraft.getMinecraft().currentScreen.onResize(Minecraft.getMinecraft(), UResolution.getScaledWidth(), UResolution.getScaledHeight());
             })
-        );
+        ) {
+            @Override
+            public void close() {
+                super.close();
+                if (!removed[0]) {
+                    ModalManager.INSTANCE.setModal(adModal);
+                }
+            }
+        };
     }
 
     public static TwoButtonModal installFailed() {

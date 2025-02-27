@@ -74,7 +74,7 @@ public class AdModal extends Modal {
         }));
 
         buttonList.add(new TextureButton(centreX - 64, startY + height + 8, 128, 8, REMOVE_INTEGRATION, 0xFF5C5C5C, 0xFF757575, false, () -> {
-            ModalManager.INSTANCE.setModal(TwoButtonModal.removeAds());
+            ModalManager.INSTANCE.setModal(TwoButtonModal.removeAds(this));
         }));
         buttonList.add(new TextureButton(startX + width - 8 - 5, startY + 8, 5, 5, X_ICON, 0xFF757575, 0xFF999999, true, () -> ModalManager.INSTANCE.setModal(null)));
     }
@@ -215,6 +215,7 @@ public class AdModal extends Modal {
         for (ResourceLocation location : iconTextures.values()) {
             Minecraft.getMinecraft().getTextureManager().deleteTexture(location);
         }
+        iconTextures.clear();
         super.close();
     }
 

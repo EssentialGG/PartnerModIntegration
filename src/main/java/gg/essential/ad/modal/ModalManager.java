@@ -46,12 +46,13 @@ public class ModalManager {
     private int previousHeight = -1;
 
     public void setModal(Modal modal) {
-        if (currentModal != null) {
-            currentModal.close();
-        }
+        Modal previous = currentModal;
         previousWidth = -1;
         previousHeight = -1;
         this.currentModal = modal;
+        if (previous != null) {
+            previous.close();
+        }
     }
 
     public MousePosition getMousePosition() {
