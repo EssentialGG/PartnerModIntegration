@@ -91,7 +91,7 @@ public class AdModal extends Modal {
         // background
         draw.rect(centreX - 49, startY + 20, centreX + 49, startY + 20 + 19, 0xFF1b3151);
         // icon texture
-        draw.texturedRect(ESSENTIAL_LOGO, centreX - 40, startY + 20 + 7, 80, 6, 0, 0, 80, 6, 0xFFE3F5FF);
+        draw.texturedRect(ESSENTIAL_LOGO, centreX - 40, startY + 20 + 7, 80, 6, 0, 0, 80, 6, 0xFFE5E5E5);
 
         // Tagline
         draw.multilineCentredString(modalData.getSubtitle("en_us"),
