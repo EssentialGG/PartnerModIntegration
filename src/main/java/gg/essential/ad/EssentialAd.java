@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 
 //#if MC>=11600
 //$$ import net.minecraft.client.gui.widget.Widget;
+//$$ import net.minecraft.util.SharedConstants;
 //#endif
 
 //#if FORGE
@@ -35,7 +36,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 //#if MC>=11600
 //#else
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.common.ForgeVersion;
 //#endif
 
 //#if MC>=11800
@@ -56,6 +57,25 @@ public class EssentialAd {
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final AdConfig CONFIG = AdConfig.load();
 
+    private static final Set<String> FABRIC_SUPPORTED_VERSIONS = new HashSet<>(Arrays.asList(
+        "1.16.5",
+        "1.17.1",
+        "1.18", "1.18.1", "1.18.2",
+        "1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4",
+        "1.20", "1.20.1", "1.20.2", "1.20.4", "1.20.6",
+        "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4"
+    ));
+
+    private static final Set<String> FORGE_SUPPORTED_VERSIONS = new HashSet<>(Arrays.asList(
+        "1.8.9",
+        "1.12.2",
+        "1.16.5",
+        "1.17.1",
+        "1.18.2",
+        "1.19.2", "1.19.3", "1.19.4",
+        "1.20.1", "1.20.2", "1.20.4"
+    ));
+
     private static final Set<String> MAIN_MENU_BUTTONS = new HashSet<>(Collections.singletonList("menu.multiplayer"));
     private static final Set<String> PAUSE_MENU_BUTTONS = new HashSet<>(Arrays.asList(
         //#if MC>=12100
@@ -74,6 +94,28 @@ public class EssentialAd {
     public EssentialAd() {
         if (EssentialUtil.isEssentialOrContainerLoaded()) return;
         if (CONFIG.shouldHideButtons()) return;
+
+        //#if MC>=11600
+        //$$ String version = SharedConstants.getVersion().getId();
+        //#else
+        String version;
+        try {
+            // Accessing via reflection so the compiler does not inline the value at build time.
+            version = (String) ForgeVersion.class.getDeclaredField("mcVersion").get(null);
+        } catch (Exception e) {
+            LOGGER.error("Failed to determine Minecraft version", e);
+            return;
+        }
+        //#endif
+
+        //#if FABRIC
+        //$$ if (!FABRIC_SUPPORTED_VERSIONS.contains(version)) {
+        //#else
+        if (!FORGE_SUPPORTED_VERSIONS.contains(version)) {
+        //#endif
+            LOGGER.info("Minecraft version {} is not supported by Essential, disabling Ad Mod", version);
+            return;
+        }
 
         //#if FORGE
         MinecraftForge.EVENT_BUS.register(this);
