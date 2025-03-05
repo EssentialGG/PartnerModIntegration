@@ -152,7 +152,7 @@ public class EssentialAd {
         int index = buttonList.size();
         if (screen instanceof GuiMainMenu) {
             texture = AdButton.TEXTURE_MAIN_MENU;
-            tooltip = "Enhanced Minecraft\nfeatures, with Essential Mod";
+            tooltip = "Enhance your Minecraft\nwith Essential Mod";
 
             GuiButton multiplayerButton = UButton.findButton(buttonList, MAIN_MENU_BUTTONS);
 
@@ -169,11 +169,11 @@ public class EssentialAd {
             if (Minecraft.getMinecraft().getCurrentServerData() != null) {
                 // On a server
                 texture = AdButton.TEXTURE_MULTIPLAYER;
-                tooltip = "Stay connected with friends,\nall inside of Minecraft";
+                tooltip = "Stay connected with your friends,\nall inside of Minecraft";
             } else {
                 // In singleplayer
                 texture = AdButton.TEXTURE_SINGLEPLAYER;
-                tooltip = "Host worlds for free, invite\nfriends, and play together";
+                tooltip = "Host worlds for free,\nand play with your friends";
             }
 
             GuiButton reportBugs = UButton.findButton(buttonList, PAUSE_MENU_BUTTONS);
