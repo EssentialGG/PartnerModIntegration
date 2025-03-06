@@ -4,7 +4,7 @@
   "version": "${version}",
   "environment": "client",
   "mixins": [
-    "gg/essential/ad/mixins.json"
+    "gg/essential/partnermod/mixins.json"
   ],
   "entrypoints": {
   },

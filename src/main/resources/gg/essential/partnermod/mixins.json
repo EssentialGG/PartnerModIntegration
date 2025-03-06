@@ -1,0 +1,14 @@
+{
+  "minVersion": "0.7",
+  "compatibilityLevel": "JAVA_8",
+  "package": "gg.essential.partnermod.mixins",
+  "plugin": "gg.essential.partnermod.MixinPlugin",
+  "client": [
+    "Mixin_Init",
+    "MouseHelperAccessor",
+    "Mixin_Screen_OverrideMousePosition"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

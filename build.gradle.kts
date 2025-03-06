@@ -1,4 +1,4 @@
-import gg.essential.ad.build.DownloadContainerTask
+import gg.essential.partnermod.build.DownloadContainerTask
 import gg.essential.gradle.util.*
 
 plugins {
@@ -21,10 +21,10 @@ loom.mixin.useLegacyMixinAp.set(false)
 loom.runs {
     named("client") {
         if (platform.mcVersion <= 11202) {
-            property("fml.coreMods.load", "gg.essential.ad.asm.EssentialPartnerCoreMod")
+            property("fml.coreMods.load", "gg.essential.partnermod.asm.EssentialPartnerCoreMod")
         }
         if (platform.mcVersion >= 11600 && platform.isForge) {
-            programArgs("--mixin", "gg/essential/ad/mixins.json")
+            programArgs("--mixin", "gg/essential/partnermod/mixins.json")
         }
     }
 }
@@ -82,10 +82,10 @@ val downloadContainer by tasks.registering(DownloadContainerTask::class) {
 tasks.processResources {
     from(downloadContainer.get().containerFile) {
         // Note: Using jarx extension to workaround https://github.com/GradleUp/shadow/issues/111
-        rename { "gg/essential/ad/container.jarx" }
+        rename { "gg/essential/partnermod/container.jarx" }
     }
     inputs.property("version", { project.version })
-    filesMatching("gg/essential/ad/loader/version.txt") {
+    filesMatching("gg/essential/partnermod/loader/version.txt") {
         filter { _ -> project.version.toString() }
     }
 }
@@ -98,12 +98,12 @@ tasks.jar {
     )
     if (platform.isModLauncher) {
         manifest.attributes(
-            "MixinConfigs" to "gg/essential/ad/mixins.json"
+            "MixinConfigs" to "gg/essential/partnermod/mixins.json"
         )
     }
     if (platform.mcVersion <= 11202) {
         manifest.attributes(
-            "FMLCorePlugin" to "gg.essential.ad.asm.EssentialPartnerModCoreMod",
+            "FMLCorePlugin" to "gg.essential.partnermod.asm.EssentialPartnerModCoreMod",
             "FMLCorePluginContainsFMLMod" to "Yes",
         )
     }
