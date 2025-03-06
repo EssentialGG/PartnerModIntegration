@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 public class EssentialAPI {
 
     private static final String API_BASE_URL = System.getProperty(
-        "essential.ad.api",
+        "essential.partnermod.api",
         "https://api.essential.gg"
     );
     private static final String MOD_PARTNER_DATA_URL = API_BASE_URL + "/v1/mod-partner";

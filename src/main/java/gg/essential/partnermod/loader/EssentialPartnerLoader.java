@@ -23,7 +23,7 @@ import net.minecraft.launchwrapper.Launch;
  * {@link #isActive()} calls.
  */
 public class EssentialPartnerLoader {
-    private static final boolean VERBOSE = Boolean.getBoolean("essentialad.loader.verbose");
+    private static final boolean VERBOSE = Boolean.getBoolean("essential.partnermod.loader.verbose");
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static final String OUR_PKG;
