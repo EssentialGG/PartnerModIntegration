@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "essentialad",
+  "id": "essential-partner-mod",
   "version": "${version}",
   "environment": "client",
   "mixins": [
@@ -8,7 +8,7 @@
   ],
   "entrypoints": {
   },
-  "name": "Essential Ad",
+  "name": "Essential Partner Mod Integration",
   "description": "<replace me>",
   "authors": ["ModCore Inc"],
   "contact": {

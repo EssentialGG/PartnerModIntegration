@@ -22,14 +22,14 @@ import net.minecraft.launchwrapper.Launch;
  * must be called as late as possible. More specifically, all {@link #propose()} calls must happen before any
  * {@link #isActive()} calls.
  */
-public class EssentialAdLoader {
+public class EssentialPartnerLoader {
     private static final boolean VERBOSE = Boolean.getBoolean("essentialad.loader.verbose");
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static final String OUR_PKG;
     static {
-        String name = EssentialAdLoader.class.getName();
-        OUR_PKG = name.substring(0, name.length() - ".loader.EssentialAdLoader".length());
+        String name = EssentialPartnerLoader.class.getName();
+        OUR_PKG = name.substring(0, name.length() - ".loader.EssentialPartnerLoader".length());
     }
 
     // Using `replace` to prevent the shadow plugin from relocating this string constant
@@ -39,7 +39,7 @@ public class EssentialAdLoader {
 
     public static final String OUR_VERSION;
     static {
-        try (InputStream in = EssentialAdLoader.class.getResourceAsStream("version.txt")) {
+        try (InputStream in = EssentialPartnerLoader.class.getResourceAsStream("version.txt")) {
             if  (in == null) throw new RuntimeException("Failed to find version.txt");
             OUR_VERSION = new BufferedReader(new InputStreamReader(in)).readLine().trim();
         } catch (IOException e) {

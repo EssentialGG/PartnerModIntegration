@@ -1,7 +1,7 @@
 package gg.essential.ad.modal;
 
 import gg.essential.ad.Draw;
-import gg.essential.ad.EssentialAd;
+import gg.essential.ad.EssentialPartner;
 import gg.essential.ad.EssentialUtil;
 import gg.essential.ad.UDesktop;
 import gg.essential.ad.UResolution;
@@ -63,7 +63,7 @@ public class TwoButtonModal extends Modal {
                 ModalManager.INSTANCE.setModal(null);
             }),
             (x, y, width) -> new ModalButton(x, y, width, ButtonColor.RED, "Remove", () -> {
-                EssentialAd.CONFIG.hideButtons();
+                EssentialPartner.CONFIG.hideButtons();
                 removed[0] = true;
                 ModalManager.INSTANCE.setModal(null);
                 Minecraft.getMinecraft().currentScreen.onResize(Minecraft.getMinecraft(), UResolution.getScaledWidth(), UResolution.getScaledHeight());

@@ -1,10 +1,10 @@
 package gg.essential.ad.modal;
 
 import gg.essential.ad.Draw;
-import gg.essential.ad.EssentialAd;
+import gg.essential.ad.EssentialPartner;
 import gg.essential.ad.EssentialUtil;
 import gg.essential.ad.Resources;
-import gg.essential.ad.data.AdData;
+import gg.essential.ad.data.PartnerModData;
 import gg.essential.ad.data.ModalData;
 import gg.essential.ad.Tooltip;
 import gg.essential.ad.UDesktop;
@@ -34,7 +34,7 @@ public class AdModal extends Modal {
 
     private int featuresOffset;
 
-    public AdModal(ModalData modalData, List<AdData.PartnerMod> partnerMods) {
+    public AdModal(ModalData modalData, List<PartnerModData.PartnerMod> partnerMods) {
         this.modalData = modalData;
         this.parterModsTooltip = getTooltip(partnerMods);
 
@@ -177,7 +177,7 @@ public class AdModal extends Modal {
         //#endif
     }
 
-    private String getTooltip(List<AdData.PartnerMod> partnerMods) {
+    private String getTooltip(List<PartnerModData.PartnerMod> partnerMods) {
         partnerMods = new ArrayList<>(partnerMods);
         Collections.shuffle(partnerMods);
 
@@ -207,7 +207,7 @@ public class AdModal extends Modal {
                 throw new IllegalStateException();
         }
         //fixme: is this a good idea?
-        return String.format(tooltip, partnerMods.stream().map(AdData.PartnerMod::getDisplayName).toArray());
+        return String.format(tooltip, partnerMods.stream().map(PartnerModData.PartnerMod::getDisplayName).toArray());
     }
 
     @Override
@@ -271,12 +271,12 @@ public class AdModal extends Modal {
         public static FeatureTooltip parse(String text, String tooltipText) {
             int tooltipStart = text.indexOf("__");
             if (tooltipStart == -1) {
-                EssentialAd.LOGGER.warn("Invalid tooltip for string: {}", text);
+                EssentialPartner.LOGGER.warn("Invalid tooltip for string: {}", text);
                 return null;
             }
             int tooltipEnd = text.indexOf("__", tooltipStart + 2);
             if (tooltipEnd == -1) {
-                EssentialAd.LOGGER.warn("Invalid tooltip for string: {}", text);
+                EssentialPartner.LOGGER.warn("Invalid tooltip for string: {}", text);
                 return null;
             }
             return new FeatureTooltip(tooltipText, tooltipStart, tooltipEnd);

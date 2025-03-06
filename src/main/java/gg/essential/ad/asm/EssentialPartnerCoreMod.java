@@ -1,6 +1,6 @@
 package gg.essential.ad.asm;
 
-import gg.essential.ad.loader.EssentialAdLoader;
+import gg.essential.ad.loader.EssentialPartnerLoader;
 import gg.essential.ad.loader.RelocationChecks;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
@@ -17,22 +17,22 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
 
-public class EssentialAdCoreMod implements IFMLLoadingPlugin {
+public class EssentialPartnerCoreMod implements IFMLLoadingPlugin {
     static {
         loadDelegate();
-        EssentialAdLoader.propose();
+        EssentialPartnerLoader.propose();
     }
 
     private static void loadDelegate() {
         try {
-            URL url = EssentialAdCoreMod.class.getResource("EssentialAdCoreMod.class");
+            URL url = EssentialPartnerCoreMod.class.getResource("EssentialPartnerCoreMod.class");
             if (url == null) throw new RuntimeException("Failed to find own class file!?");
             URLConnection connection = url.openConnection();
             if (!(connection instanceof JarURLConnection)) {
                 return; // development environment
             }
             JarURLConnection jarConnection = (JarURLConnection) connection;
-            String delegateName = jarConnection.getMainAttributes().getValue("EssentialAdCoreModDelegate");
+            String delegateName = jarConnection.getMainAttributes().getValue("EssentialPartnerCoreModDelegate");
             if (delegateName == null) {
                 return; // user mod has no core mod
             }
@@ -49,8 +49,8 @@ public class EssentialAdCoreMod implements IFMLLoadingPlugin {
 
     @Override
     public String[] getASMTransformerClass() {
-        if (EssentialAdLoader.isActive()) {
-            return new String[]{EssentialAdClassTransformer.class.getName()};
+        if (EssentialPartnerLoader.isActive()) {
+            return new String[]{EssentialPartnerClassTransformer.class.getName()};
         } else {
             return null;
         }

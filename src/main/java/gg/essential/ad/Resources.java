@@ -25,13 +25,13 @@ public class Resources {
     private static final AtomicInteger counter = new AtomicInteger(0);
 
     public static ResourceLocation load(String name) {
-        try (InputStream stream = EssentialAd.class.getResourceAsStream("assets/" + name)) {
+        try (InputStream stream = EssentialPartner.class.getResourceAsStream("assets/" + name)) {
             if (stream == null) throw new RuntimeException("Texture not found " + name);
             try (BufferedInputStream bis = new BufferedInputStream(stream)) {
                 return load(bis);
             }
         } catch (Exception e) {
-            EssentialAd.LOGGER.error("Failed to load texture {}", name, e);
+            EssentialPartner.LOGGER.error("Failed to load texture {}", name, e);
             return MISSINGNO;
         }
     }
@@ -42,7 +42,7 @@ public class Resources {
         //$$ try {
         //$$     image = NativeImage.read(is);
         //$$ } catch (IOException e) {
-        //$$     EssentialAd.LOGGER.error("Failed to load texture", e);
+        //$$     EssentialPartner.LOGGER.error("Failed to load texture", e);
         //$$     return MISSINGNO;
         //$$ }
         //#else
@@ -50,7 +50,7 @@ public class Resources {
         try {
             image = ImageIO.read(is);
         } catch (IOException e) {
-            EssentialAd.LOGGER.error("Failed to load texture", e);
+            EssentialPartner.LOGGER.error("Failed to load texture", e);
             return MISSINGNO;
         }
         //#endif

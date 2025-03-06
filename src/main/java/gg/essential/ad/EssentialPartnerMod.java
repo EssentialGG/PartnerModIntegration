@@ -9,10 +9,10 @@ package gg.essential.ad;
 import net.minecraftforge.fml.common.Mod;
 
 //#if MC>=11600
-//$$ @Mod("essentialad")
+//$$ @Mod("essential-partner-mod")
 //#else
-@Mod(modid = "essentialad")
+@Mod(modid = "essential-partner-mod")
 //#endif
 //#endif
-public class EssentialAdMod {
+public class EssentialPartnerMod {
 }

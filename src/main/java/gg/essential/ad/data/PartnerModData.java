@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Collections;
 import java.util.List;
 
-public class AdData {
+public class PartnerModData {
     private ModalData modal;
     @SerializedName("partnered_mods")
     private List<PartnerMod> partneredMods;
 
-    public AdData(ModalData modal, List<PartnerMod> partneredMods) {
+    public PartnerModData(ModalData modal, List<PartnerMod> partneredMods) {
         this.modal = modal;
         this.partneredMods = partneredMods;
     }

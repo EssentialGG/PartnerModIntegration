@@ -21,7 +21,7 @@ loom.mixin.useLegacyMixinAp.set(false)
 loom.runs {
     named("client") {
         if (platform.mcVersion <= 11202) {
-            property("fml.coreMods.load", "gg.essential.ad.asm.EssentialAdCoreMod")
+            property("fml.coreMods.load", "gg.essential.ad.asm.EssentialPartnerCoreMod")
         }
         if (platform.mcVersion >= 11600 && platform.isForge) {
             programArgs("--mixin", "gg/essential/ad/mixins.json")
@@ -93,7 +93,7 @@ tasks.processResources {
 tasks.jar {
     manifest.attributes(
         "Implementation-Vendor" to "ModCore Inc.",
-        "Implementation-Title" to "EssentialAd",
+        "Implementation-Title" to "EssentialPartnerModIntegration",
         "Implementation-Version" to version,
     )
     if (platform.isModLauncher) {
@@ -103,7 +103,7 @@ tasks.jar {
     }
     if (platform.mcVersion <= 11202) {
         manifest.attributes(
-            "FMLCorePlugin" to "gg.essential.ad.asm.EssentialAdCoreMod",
+            "FMLCorePlugin" to "gg.essential.ad.asm.EssentialPartnerModCoreMod",
             "FMLCorePluginContainsFMLMod" to "Yes",
         )
     }
@@ -112,7 +112,7 @@ tasks.jar {
 publishing {
     publications {
         named<MavenPublication>("maven") {
-            artifactId = "ad-$platform"
+            artifactId = "partner-mod-integration-$platform"
         }
     }
 }

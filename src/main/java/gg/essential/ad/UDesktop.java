@@ -25,7 +25,7 @@ public class UDesktop {
                         return;
                     }
                 } catch (Throwable t) {
-                    EssentialAd.LOGGER.error("Failed to browse via AWT to {}", uri, t);
+                    EssentialPartner.LOGGER.error("Failed to browse via AWT to {}", uri, t);
                 }
             }
             String os = System.getProperty("os.name").toLowerCase(Locale.ROOT);
@@ -44,7 +44,7 @@ public class UDesktop {
             }
             //#endif
         } catch (Exception e) {
-            EssentialAd.LOGGER.error("Failed to browse to {}", uri, e);
+            EssentialPartner.LOGGER.error("Failed to browse to {}", uri, e);
         }
     }
 

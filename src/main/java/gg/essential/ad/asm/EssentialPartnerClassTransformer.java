@@ -22,14 +22,14 @@ import org.objectweb.asm.tree.VarInsnNode;
 import java.util.ListIterator;
 import java.util.Objects;
 
-public class EssentialAdClassTransformer implements IClassTransformer {
+public class EssentialPartnerClassTransformer implements IClassTransformer {
     private static final String PKG;
     static {
-        String pkg = EssentialAdClassTransformer.class.getName();
-        pkg = pkg.substring(0, pkg.length() - ".asm.EssentialAdClassTransformer".length());
+        String pkg = EssentialPartnerClassTransformer.class.getName();
+        pkg = pkg.substring(0, pkg.length() - ".asm.EssentialPartnerClassTransformer".length());
         PKG = pkg.replace('.', '/');
     }
-    private static final String EssentialAd = PKG + "/EssentialAd";
+    private static final String EssentialPartner = PKG + "/EssentialPartner";
     private static final String ModalManager = PKG + "/modal/ModalManager";
     private static final String DrawEvent = PKG + "/modal/ModalManager$DrawEvent";
 
@@ -44,8 +44,8 @@ public class EssentialAdClassTransformer implements IClassTransformer {
                 String methodName = FMLDeobfuscatingRemapper.INSTANCE.mapMethodName(classNode.name, method.name, method.desc);
                 if (methodName.equals("init") || methodName.equals("func_71384_a")) {
                     InsnList list = new InsnList();
-                    list.add(new TypeInsnNode(Opcodes.NEW, EssentialAd));
-                    list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, EssentialAd, "<init>", "()V", false));
+                    list.add(new TypeInsnNode(Opcodes.NEW, EssentialPartner));
+                    list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, EssentialPartner, "<init>", "()V", false));
                     // Note: Must be after `beginMinecraftLoading` (because prior to that Forge's EventBus class will
                     //       complain) but before `displayGuiScreen` (because we want to react to that event)
                     method.instructions.insertBefore(findConstant(method.instructions, "Post startup"), list);

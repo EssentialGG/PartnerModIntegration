@@ -1,7 +1,7 @@
 [
   {
-    "modid": "essentialad",
-    "name": "Essential Ad",
+    "modid": "essential-partner-mod",
+    "name": "Essential Partner Mod Integration",
     "description": "<replace me>",
     "version": "${version}",
     "mcversion": "${mcVersionStr}",

@@ -53,11 +53,11 @@ public class EssentialUtil {
                 if (is == null) throw new IllegalStateException("No bundled container jar found!");
                 Files.copy(is, destination);
             }
-            EssentialAd.LOGGER.info("Successfully installed essential container to {}", destination.toRealPath());
+            EssentialPartner.LOGGER.info("Successfully installed essential container to {}", destination.toRealPath());
             installationCompleted = true;
             return true;
         } catch (Exception e) {
-            EssentialAd.LOGGER.error("Failed to install essential container", e);
+            EssentialPartner.LOGGER.error("Failed to install essential container", e);
             return false;
         }
     }

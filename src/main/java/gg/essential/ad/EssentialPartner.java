@@ -2,7 +2,7 @@ package gg.essential.ad;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import gg.essential.ad.data.AdData;
+import gg.essential.ad.data.PartnerModData;
 import gg.essential.ad.modal.AdModal;
 import gg.essential.ad.modal.ModalManager;
 import gg.essential.ad.modal.TwoButtonModal;
@@ -51,11 +51,11 @@ import net.minecraftforge.client.event.GuiScreenEvent;
 //$$ import net.fabricmc.fabric.api.client.screen.v1.Screens;
 //#endif
 
-public class EssentialAd {
+public class EssentialPartner {
 
     public static final Logger LOGGER = LogManager.getLogger("EssentialAd");
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    public static final AdConfig CONFIG = AdConfig.load();
+    public static final PartnerModConfig CONFIG = PartnerModConfig.load();
 
     private static final Set<String> FABRIC_SUPPORTED_VERSIONS = new HashSet<>(Arrays.asList(
         "1.16.5",
@@ -88,10 +88,10 @@ public class EssentialAd {
         //#endif
     ));
 
-    private CompletableFuture<AdData> adDataFuture = null;
-    private List<AdData.PartnerMod> partnerMods = null;
+    private CompletableFuture<PartnerModData> partnerModDataFuture = null;
+    private List<PartnerModData.PartnerMod> partnerMods = null;
 
-    public EssentialAd() {
+    public EssentialPartner() {
         if (EssentialUtil.isEssentialOrContainerLoaded()) return;
         if (CONFIG.shouldHideButtons()) return;
 
@@ -113,7 +113,7 @@ public class EssentialAd {
         //#else
         if (!FORGE_SUPPORTED_VERSIONS.contains(version)) {
         //#endif
-            LOGGER.info("Minecraft version {} is not supported by Essential, disabling Ad Mod", version);
+            LOGGER.info("Minecraft version {} is not supported by Essential, disabling Partner Mod", version);
             return;
         }
 
@@ -125,7 +125,7 @@ public class EssentialAd {
         //$$ ModalManager.INSTANCE.registerEvents();
         //#endif
 
-        adDataFuture = EssentialAPI.fetchAdData();
+        partnerModDataFuture = EssentialAPI.fetchPartnerModData();
     }
 
     private void createButton(
@@ -236,9 +236,9 @@ public class EssentialAd {
             if (EssentialUtil.installationCompleted()) {
                 ModalManager.INSTANCE.setModal(TwoButtonModal.postInstall());
             } else {
-                AdData data;
+                PartnerModData data;
                 try {
-                    data = adDataFuture.join();
+                    data = partnerModDataFuture.join();
                 } catch (CompletionException e) {
                     // This should only happen if the fallback data fails to load, which shouldn't happen.
                     ModalManager.INSTANCE.setModal(TwoButtonModal.installFailed());
@@ -302,7 +302,7 @@ public class EssentialAd {
     }
     //#endif
 
-    private List<AdData.PartnerMod> getPartnerMods(AdData data) {
+    private List<PartnerModData.PartnerMod> getPartnerMods(PartnerModData data) {
         if (partnerMods != null) return partnerMods;
         return partnerMods = data.getPartneredMods().stream()
             .filter(mod -> ModLoaderUtil.isModLoaded(mod.getId()))

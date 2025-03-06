@@ -17,7 +17,7 @@ public class RelocationChecks {
         // Ensure resources have been relocated
         if (RelocationChecks.class.getResource("/" + actualPackage.replace('.', '/') + "/container.jarx") == null) error();
         // Ensure mod class has been excluded
-        if (RelocationChecks.class.getResource("/" + actualPackage.replace('.', '/') + "/EssentialAdMod.class") != null) error();
+        if (RelocationChecks.class.getResource("/" + actualPackage.replace('.', '/') + "/EssentialPartnerMod.class") != null) error();
     }
 
     private static boolean isDevelopment() {
@@ -42,11 +42,11 @@ public class RelocationChecks {
         //#else
         Package pkg = RelocationChecks.class.getPackage();
         if (pkg == null) return false;
-        return "EssentialAd".equals(pkg.getImplementationTitle()) && "ModCore Inc.".equals(pkg.getImplementationVendor());
+        return "EssentialPartnerModIntegration".equals(pkg.getImplementationTitle()) && "ModCore Inc.".equals(pkg.getImplementationVendor());
         //#endif
     }
 
     private static void error() {
-        throw new RuntimeException("The Essential Ad mod has not been relocated properly! Please check the README.");
+        throw new RuntimeException("The Essential Partner Integration mod has not been relocated properly! Please check the README.");
     }
 }
