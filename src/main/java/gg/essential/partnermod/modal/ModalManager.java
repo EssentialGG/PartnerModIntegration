@@ -155,9 +155,6 @@ public class ModalManager {
     //$$         ScreenMouseEvents.allowMouseClick(screen).register((screen1, mouseX, mouseY, button) -> {
     //$$             return !handleMouseClick(mouseX, mouseY);
     //$$         });
-    //$$         ScreenMouseEvents.allowMouseScroll(screen).register((screen1, mouseX, mouseY, horizontalAmount, verticalAmount) -> {
-    //$$             return !handleMouseClick(mouseX, mouseY);
-    //$$         });
     //$$         ScreenKeyboardEvents.allowKeyPress(screen).register((screen1, key, scancode, modifiers) -> {
     //$$             return !handleKeyTyped(key);
     //$$         });
