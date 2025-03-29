@@ -53,7 +53,7 @@ import net.minecraftforge.client.event.GuiScreenEvent;
 
 public class EssentialPartner {
 
-    public static final Logger LOGGER = LogManager.getLogger("EssentialAd");
+    public static final Logger LOGGER = LogManager.getLogger("EssentialPartnerMod");
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final PartnerModConfig CONFIG = PartnerModConfig.load();
 
