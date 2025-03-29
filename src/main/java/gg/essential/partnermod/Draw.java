@@ -9,25 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-//#if MC>=12102
-//$$ import net.minecraft.client.gl.ShaderProgramKeys;
+//#if MC>12102
 //$$ import net.minecraft.client.render.RenderLayer;
-//#endif
-
-//#if MC>=11700
-//$$ import net.minecraft.client.render.GameRenderer;
-//$$ import net.minecraft.client.render.VertexFormat;
 //#endif
 
 //#if MC>=11600
 //$$ import com.mojang.blaze3d.matrix.MatrixStack;
-//$$ import com.mojang.blaze3d.systems.RenderSystem;
-//$$ import net.minecraft.client.renderer.BufferBuilder;
-//$$ import net.minecraft.client.renderer.Tessellator;
-//$$ import net.minecraft.client.renderer.WorldVertexBufferUploader;
-//$$ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-//$$ import net.minecraft.util.math.vector.Matrix4f;
-//$$ import org.lwjgl.opengl.GL11;
 //#endif
 
 public class Draw {
@@ -63,70 +50,9 @@ public class Draw {
 
     public void rect(int left, int top, int right, int bottom, int color) {
         //#if MC>=12000
-        //$$ drawContext.draw(); // flush vanilla buffer
-        //#endif
-        //#if MC>=11600
-        //$$ // FIXME: cleanup
-        //#if MC>=12000
-        //$$ Matrix4f matrix = drawContext.getMatrices().peek().getPositionMatrix();
-        //#else
-        //$$ Matrix4f matrix = matrixStack.getLast().getMatrix();
-        //#endif
-        //$$
-        //$$ float f = (float)(color >> 24 & 0xFF) / 255.0F;
-        //$$ float g = (float)(color >> 16 & 0xFF) / 255.0F;
-        //$$ float h = (float)(color >> 8 & 0xFF) / 255.0F;
-        //$$ float j = (float)(color & 0xFF) / 255.0F;
-        //#if MC<12100
-        //$$ BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
-        //#endif
-        //$$ RenderSystem.enableBlend();
-        //#if MC<11904
-        //$$ RenderSystem.disableTexture();
-        //#endif
-        //$$ RenderSystem.defaultBlendFunc();
-        //#if MC>=12102
-        //$$ RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
-        //#elseif MC>=11700
-        //$$ RenderSystem.setShader(GameRenderer::getPositionColorShader);
-        //#endif
-        //#if MC>=12100
-        //$$ BufferBuilder bufferBuilder = Tessellator.getInstance().begin(
-        //#else
-        //$$ bufferBuilder.begin(
-        //#endif
-            //#if MC>=11700
-            //$$ VertexFormat.DrawMode.QUADS,
-            //#else
-            //$$ 7,
-            //#endif
-        //$$     DefaultVertexFormats.POSITION_COLOR
-        //$$ );
-        //#if MC>=12100
-        //$$ bufferBuilder.vertex(matrix, (float)left, (float)bottom, 0.0F).color(g, h, j, f);
-        //$$ bufferBuilder.vertex(matrix, (float)right, (float)bottom, 0.0F).color(g, h, j, f);
-        //$$ bufferBuilder.vertex(matrix, (float)right, (float)top, 0.0F).color(g, h, j, f);
-        //$$ bufferBuilder.vertex(matrix, (float)left, (float)top, 0.0F).color(g, h, j, f);
-        //#else
-        //$$ bufferBuilder.pos(matrix, (float)left, (float)bottom, 0.0F).color(g, h, j, f).endVertex();
-        //$$ bufferBuilder.pos(matrix, (float)right, (float)bottom, 0.0F).color(g, h, j, f).endVertex();
-        //$$ bufferBuilder.pos(matrix, (float)right, (float)top, 0.0F).color(g, h, j, f).endVertex();
-        //$$ bufferBuilder.pos(matrix, (float)left, (float)top, 0.0F).color(g, h, j, f).endVertex();
-        //#endif
-        //$$ RenderSystem.enableDepthTest();
-        //$$ RenderSystem.depthFunc(GL11.GL_ALWAYS);
-        //#if MC>=11900
-        //$$ BufferRenderer.drawWithShader(bufferBuilder.end());
-        //#else
-        //$$ bufferBuilder.finishDrawing();
-        //$$ WorldVertexBufferUploader.draw(bufferBuilder);
-        //#endif
-        //$$ RenderSystem.disableDepthTest();
-        //$$ RenderSystem.depthFunc(GL11.GL_LEQUAL);
-        //#if MC<11904
-        //$$ RenderSystem.enableTexture();
-        //#endif
-        //$$ RenderSystem.disableBlend();
+        //$$ drawContext.fill(left, top, right, bottom, color);
+        //#elseif MC>=11600
+        //$$ AbstractGui.fill(matrixStack, left, top, right, bottom, color);
         //#else
         Gui.drawRect(left, top, right, bottom, color);
         //#endif

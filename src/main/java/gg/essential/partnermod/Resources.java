@@ -54,8 +54,12 @@ public class Resources {
             return MISSINGNO;
         }
         //#endif
-        DynamicTexture texture = new DynamicTexture(image);
         ResourceLocation location = UMinecraft.identifier("essentialad", "texture/" + counter.getAndIncrement());
+        //#if MC>=12105
+        //$$ NativeImageBackedTexture texture = new NativeImageBackedTexture(location::toString, image);
+        //#else
+        DynamicTexture texture = new DynamicTexture(image);
+        //#endif
         Minecraft.getMinecraft().getTextureManager().loadTexture(location, texture);
         return location;
     }

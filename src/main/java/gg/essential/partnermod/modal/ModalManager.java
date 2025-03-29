@@ -82,23 +82,38 @@ public class ModalManager {
 
     private void handleDraw(
         //#if MC>=12000
-        //$$ DrawContext stack
+        //$$ DrawContext drawContext
         //#elseif MC>=11600
         //$$ MatrixStack stack
         //#endif
     ) {
         resetMousePosition();
 
+        //#if MC>=12000
+        //$$ MatrixStack stack = drawContext.getMatrices();
+        //#endif
+
+        //#if MC>=11600
+        //$$ stack.push();
+        //$$ stack.translate(0, 0, 10f);
+        //#endif
+
         Draw draw = new Draw(
             (int) UMouse.getScaledX(),
             (int) UMouse.getScaledY()
-            //#if MC>=11600
+            //#if MC>=12000
+            //$$ , drawContext
+            //#elseif MC>=11600
             //$$ , stack
             //#endif
         );
         Draw.flushDeferred(draw);
         handleDraw(draw);
         Draw.flushDeferred(draw);
+
+        //#if MC>=11600
+        //$$ stack.pop();
+        //#endif
     }
 
     private void handleDraw(Draw draw) {

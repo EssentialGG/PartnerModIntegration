@@ -49,6 +49,7 @@ dependencies {
             12100 -> "0.100.4+1.21"
             12103 -> "0.106.1+1.21.3"
             12104 -> "0.115.1+1.21.4"
+            12105 -> "0.119.0+1.21.5"
             else -> error("Unable to determine fabric api version")
         }
 
@@ -69,6 +70,7 @@ dependencies {
 val downloadContainer by tasks.registering(DownloadContainerTask::class) {
     containerFile = layout.buildDirectory.file("essential-container.jar")
     version = when (project.platform.mcVersion) {
+        12105 -> "1.4.2+fabric-1.21.5"
         12104 -> "1.4.2+fabric-1.21.4"
         12103 -> "1.4.2+fabric-1.21.3"
         12102 -> "1.4.2+fabric-1.21.2"
