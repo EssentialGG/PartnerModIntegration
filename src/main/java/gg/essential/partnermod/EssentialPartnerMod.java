@@ -9,9 +9,9 @@ package gg.essential.partnermod;
 import net.minecraftforge.fml.common.Mod;
 
 //#if MC>=11600
-//$$ @Mod("essential-partner-mod")
+//$$ @Mod("essential_partner_mod")
 //#else
-@Mod(modid = "essential-partner-mod")
+@Mod(modid = "essential_partner_mod")
 //#endif
 //#endif
 public class EssentialPartnerMod {

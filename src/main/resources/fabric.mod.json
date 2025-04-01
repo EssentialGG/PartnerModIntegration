@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "essential-partner-mod",
+  "id": "essential_partner_mod",
   "version": "${version}",
   "environment": "client",
   "mixins": [

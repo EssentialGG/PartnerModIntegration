@@ -3,13 +3,13 @@ loaderVersion="[33,)"
 license="All rights reserved"
 
 [[mods]]
-modId="essential-partner-mod"
+modId="essential_partner_mod"
 version="${file.jarVersion}"
 displayName="Essential Partner Mod Integration"
 displayURL="https://essential.gg/"
 description="<replace me>"
 
-[[dependencies.essential-partner-mod]]
+[[dependencies.essential_partner_mod]]
 modId="forge"
 mandatory=true
 versionRange="[33,)"

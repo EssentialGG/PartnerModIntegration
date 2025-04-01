@@ -1,6 +1,6 @@
 [
   {
-    "modid": "essential-partner-mod",
+    "modid": "essential_partner_mod",
     "name": "Essential Partner Mod Integration",
     "description": "<replace me>",
     "version": "${version}",

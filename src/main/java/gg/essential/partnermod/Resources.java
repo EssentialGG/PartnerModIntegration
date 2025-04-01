@@ -54,7 +54,7 @@ public class Resources {
             return MISSINGNO;
         }
         //#endif
-        ResourceLocation location = UMinecraft.identifier("essentialad", "texture/" + counter.getAndIncrement());
+        ResourceLocation location = UMinecraft.identifier("essential_partner_mod", "texture/" + counter.getAndIncrement());
         //#if MC>=12105
         //$$ NativeImageBackedTexture texture = new NativeImageBackedTexture(location::toString, image);
         //#else
