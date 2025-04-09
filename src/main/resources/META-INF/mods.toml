@@ -5,9 +5,9 @@ license="All rights reserved"
 [[mods]]
 modId="essential_partner_mod"
 version="${file.jarVersion}"
-displayName="Essential Partner Mod Integration"
+displayName="Essential Partner Mod Integrations"
 displayURL="https://essential.gg/"
-description="<replace me>"
+description="Enhance your Minecraft with one simple mod. Host worlds for free, chat with friends, and so much more!"
 
 [[dependencies.essential_partner_mod]]
 modId="forge"

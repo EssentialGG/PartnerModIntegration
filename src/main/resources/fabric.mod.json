@@ -8,9 +8,10 @@
   ],
   "entrypoints": {
   },
-  "name": "Essential Partner Mod Integration",
-  "description": "<replace me>",
-  "authors": ["ModCore Inc"],
+  "name": "Essential Partner Mod Integrations",
+  "description": "Enhance your Minecraft with one simple mod. Host worlds for free, chat with friends, and so much more!",
+  "icon": "gg/essential/partnermod/assets/essential_icon.png",
+  "authors": ["Spark Universe"],
   "contact": {
     "homepage": "https://essential.gg/",
     "issues": "https://essential.gg/support"

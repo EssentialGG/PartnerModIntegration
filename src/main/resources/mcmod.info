@@ -1,14 +1,14 @@
 [
   {
     "modid": "essential_partner_mod",
-    "name": "Essential Partner Mod Integration",
-    "description": "<replace me>",
+    "name": "Essential Partner Mod Integrations",
+    "description": "Enhance your Minecraft with one simple mod. Host worlds for free, chat with friends, and so much more!",
     "version": "${version}",
     "mcversion": "${mcVersionStr}",
     "url": "https://essential.gg/",
     "updateUrl": "",
     "authorList": [
-      "ModCore Inc"
+      "Spark Universe"
     ],
     "credits": "",
     "logoFile": "",
