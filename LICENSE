@@ -1,6 +1,6 @@
-Essential Partner Mod Integration™
-Use and Contribution License Agreement
-Last Updated: 17th April 2025
+                      Essential Partner Mod Integration™
+                     Use and Contribution License Agreement
+                        Last Updated: 17th April 2025
 
 This Use and Contribution License Agreement allows you to modify, create, fork,
 and use new versions of our Essential Partner Mod Integration in accordance with
@@ -10,7 +10,7 @@ the terms of this license, you transfer the copyright and ownership of those
 changes to Essential. This introduction is for summary purposes only and does
 not constitute part of the agreement.
 
---------------------------------------------------------------------------------
+                                    * * *
 
 ModCore Inc., doing business as Essential™ ("Essential"), owns, publishes,
 and makes available for download and use its Essential Partner Mod Integration™ 
@@ -46,13 +46,13 @@ Mod Code, in the form published from time to time in its code repository
 presently located at https://github.com/EssentialGG/EssentialPartnerMod
 (the "Mod Repository"), is the "Program" as defined therein.
 
-2. Creation of Modified Versions.
+1. Creation of Modified Versions.
 Each User is permitted under GPL-3 to create and use "modified versions" of
 the Program (i.e., the Mod Code) as defined therein (collectively, "Modified
 Versions") and subject to the terms and conditions thereof. Each User who
 creates a Modified Version may be referred to herein as a "Contributor".
 
-3. Proposal and Acceptance of Modified Versions
+1. Proposal and Acceptance of Modified Versions
 Essential invites, but does not require, Contributors to submit their Modified
 Versions to Essential for potential inclusion in the Mod Code (each, a
 "Proposed Contribution"), subject to the following terms and conditions:
