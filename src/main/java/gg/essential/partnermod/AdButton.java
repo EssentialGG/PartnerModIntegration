@@ -103,9 +103,9 @@ public class AdButton extends GuiButton {
             //#endif
     //$$         if (this.isHovered()) {
                 //#if MC>=12000
-                //$$ drawTooltip(new Draw(mouseX, mouseY, context), MinecraftClient.getInstance(), TooltipPosition.ABOVE);
+                //$$ Draw.deferred(it -> drawTooltip(it, MinecraftClient.getInstance(), TooltipPosition.ABOVE));
                 //#else
-                //$$ drawTooltip(new Draw(mouseX, mouseY, matrixStack), Minecraft.getInstance(), TooltipPosition.ABOVE);
+                //$$ Draw.deferred(it -> drawTooltip(it, Minecraft.getInstance(), TooltipPosition.ABOVE));
                 //#endif
     //$$         }
     //$$     }
