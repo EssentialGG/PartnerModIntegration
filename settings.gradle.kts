@@ -13,7 +13,7 @@ pluginManagement {
 }
 
 
-rootProject.name = "EssentialPartnerMod"
+rootProject.name = "PartnerModIntegration"
 rootProject.buildFileName = "root.gradle.kts"
 
 listOf(

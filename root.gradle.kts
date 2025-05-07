@@ -2,8 +2,6 @@ plugins {
     id("gg.essential.multi-version.root")
 }
 
-//version = versionFromBuildIdAndBranch()
-
 preprocess {
     strictExtraMappings.set(true)
 
