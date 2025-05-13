@@ -20,6 +20,9 @@ import net.minecraft.client.Minecraft;
 //$$ import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 //$$ import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
 //$$ import net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents;
+//#elseif NEOFORGE
+//$$ import net.neoforged.bus.api.SubscribeEvent;
+//$$ import net.neoforged.neoforge.client.event.ScreenEvent;
 //#else
 //#if MC>=11800
 //$$ import net.minecraftforge.client.event.ScreenEvent;

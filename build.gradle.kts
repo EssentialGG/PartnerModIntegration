@@ -61,6 +61,7 @@ dependencies {
         platform.isFabric -> "fabric"
         platform.isLegacyForge -> "forge-legacy"
         platform.isForge -> "forge-latest"
+        platform.isNeoForge -> "neoforge"
         else -> error("Unable to determine DevAuth platform")
     }
 
@@ -69,15 +70,7 @@ dependencies {
 
 val downloadContainer by tasks.registering(DownloadContainerTask::class) {
     containerFile = layout.buildDirectory.file("essential-container.jar")
-    version = when (project.platform.mcVersion) {
-        12105 -> "1.4.2+fabric-1.21.5"
-        12104 -> "1.4.2+fabric-1.21.4"
-        12103 -> "1.4.2+fabric-1.21.3"
-        12102 -> "1.4.2+fabric-1.21.2"
-        12101 -> "1.4.2+fabric-1.21.1"
-        12100 -> "1.4.2+fabric-1.21"
-        else -> "1.4.2"
-    }
+    version = "1.4.3"
     platform = "${project.platform.loaderStr}_${project.platform.mcVersionStr}"
 }
 
@@ -89,6 +82,16 @@ tasks.processResources {
     inputs.property("version", { project.version })
     filesMatching("gg/essential/partnermod/loader/version.txt") {
         filter { _ -> project.version.toString() }
+    }
+
+    if (platform.isNeoForge) {
+        if (platform.mcVersion < 12005) {
+            // NeoForge still uses the old mods.toml name until 1.20.5
+            filesMatching("META-INF/neoforge.mods.toml") {
+                name = "mods.toml"
+            }
+        }
+        exclude("META-INF/mods.toml")
     }
 }
 

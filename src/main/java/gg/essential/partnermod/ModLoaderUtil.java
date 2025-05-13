@@ -13,6 +13,8 @@ package gg.essential.partnermod;
 
 //#if FABRIC
 //$$ import net.fabricmc.loader.api.FabricLoader;
+//#elseif NEOFORGE
+//$$ import net.neoforged.fml.loading.LoadingModList;
 //#else
 //#if MC>=11400
 //$$ import net.minecraftforge.fml.loading.LoadingModList;

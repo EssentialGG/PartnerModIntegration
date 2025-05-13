@@ -41,6 +41,12 @@ import java.util.stream.Collectors;
 //$$ import net.minecraft.util.SharedConstants;
 //#endif
 
+//#if NEOFORGE
+//$$ import net.neoforged.neoforge.common.NeoForge;
+//$$ import net.neoforged.bus.api.SubscribeEvent;
+//$$ import net.neoforged.neoforge.client.event.ScreenEvent;
+//#endif
+
 //#if FORGE
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -77,6 +83,11 @@ public class EssentialPartner {
         "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5"
     ));
 
+    private static final Set<String> NEOFORGE_SUPPORTED_VERSIONS = new HashSet<>(Arrays.asList(
+        "1.20.4", "1.20.6",
+        "1.21.1", "1.21.3", "1.21.4", "1.21.5"
+    ));
+
     private static final Set<String> FORGE_SUPPORTED_VERSIONS = new HashSet<>(Arrays.asList(
         "1.8.9",
         "1.12.2",
@@ -84,7 +95,8 @@ public class EssentialPartner {
         "1.17.1",
         "1.18.2",
         "1.19.2", "1.19.3", "1.19.4",
-        "1.20.1", "1.20.2", "1.20.4"
+        "1.20.1", "1.20.2", "1.20.4", "1.20.6",
+        "1.21.1", "1.21.3", "1.21.4", "1.21.5"
     ));
 
     private static final Set<String> MAIN_MENU_BUTTONS = new HashSet<>(Collections.singletonList("menu.multiplayer"));
@@ -121,6 +133,8 @@ public class EssentialPartner {
 
         //#if FABRIC
         //$$ if (!FABRIC_SUPPORTED_VERSIONS.contains(version)) {
+        //#elseif NEOFORGE
+        //$$ if (!NEOFORGE_SUPPORTED_VERSIONS.contains(version)) {
         //#else
         if (!FORGE_SUPPORTED_VERSIONS.contains(version)) {
         //#endif
@@ -128,7 +142,10 @@ public class EssentialPartner {
             return;
         }
 
-        //#if FORGE
+        //#if NEOFORGE
+        //$$ NeoForge.EVENT_BUS.register(this);
+        //$$ NeoForge.EVENT_BUS.register(ModalManager.INSTANCE);
+        //#elseif FORGE
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(ModalManager.INSTANCE);
         //#else
@@ -268,7 +285,7 @@ public class EssentialPartner {
         return x1 < x2 + w2 && x2 < x1 + w1 && y1 < y2 + h2 && y2 < y1 + h1;
     }
 
-    //#if FORGE
+    //#if FORGELIKE
     @SubscribeEvent
     public void screenInitEvent(
         //#if MC>=11900
