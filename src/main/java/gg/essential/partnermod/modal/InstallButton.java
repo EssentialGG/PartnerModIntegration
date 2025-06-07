@@ -32,8 +32,8 @@ public class InstallButton extends ModalButton {
 
         int centreX = x + width / 2;
         int startX = centreX - textWidth / 2;
-        draw.texturedRect(ICON, startX + 1, y + 6, 10, 10, 0, 0, 10, 10, 0xFF132339);
+        draw.texturedRect(ICON, startX + 1, y + 6, 10, 10, 0, 0, 10, 10, 0xFF000000);
         draw.texturedRect(ICON, startX, y + 5, 10,  10, 0, 0, 10, 10, 0xFFe5e5e5);
-        draw.string(text, startX + 12, y + 6, 0xFFe5e5e5, 0xFF132339);
+        draw.string(text, startX + 12, y + 6, 0xFFe5e5e5, 0xFF000000);
     }
 }

@@ -143,7 +143,7 @@ public class AdButton extends GuiButton {
         }
 
         int width = maxWidth + 8;
-        int height = 9 * lines.length + 6;
+        int height = 10 * lines.length + 4;
 
         int buttonX = UButton.getX(this);
         int buttonY = UButton.getY(this);
@@ -209,7 +209,7 @@ public class AdButton extends GuiButton {
         int textY = y;
         for (String line : lines) {
             int lineWidth = mc.fontRenderer.getStringWidth(line);
-            draw.string(line, centerX - lineWidth / 2, textY + 3, -1);
+            draw.string(line, centerX - lineWidth / 2, textY + 3, 0xFFE5E5E5, 0xFF000000);
             textY += 10;
         }
 
