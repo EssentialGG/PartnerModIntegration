@@ -40,6 +40,10 @@ import java.util.function.Consumer;
 //$$ import net.minecraft.client.gui.DrawContext;
 //#endif
 
+//#if MC>=12104
+//$$ import net.minecraft.util.math.ColorHelper;
+//#endif
+
 public class AdButton extends GuiButton {
 
     public static ResourceLocation TEXTURE_MAIN_MENU = Resources.load("button_mainmenu.png");
@@ -89,7 +93,16 @@ public class AdButton extends GuiButton {
     //$$         int x = 0;
     //$$         if (this.isHovered()) x += this.width;
     //$$
-            //#if MC>=12102
+            //#if MC>=12104
+            //#elseif MC>=11700
+            //$$ RenderSystem.setShaderColor(1f, 1f, 1f, this.alpha);
+            //#else
+            //$$ RenderSystem.color4f(1f, 1f, 1f, this.alpha);
+            //#endif
+    //$$
+            //#if MC>=12105
+            //$$ context.drawTexture(RenderLayer::getGuiTextured, texture, this.getX(), this.getY(), x, 0, width, height, width * 2, height, ColorHelper.getWhite(this.alpha));
+            //#elseif MC>=12102
             //$$ context.drawTexture(RenderLayer::getGuiTextured, texture, this.getX(), this.getY(), x, 0, width, height, width * 2, height);
             //#elseif MC>=12000
             //$$ context.drawTexture(texture, this.getX(), this.getY(), 0, x, 0, width, height, width * 2, height);
