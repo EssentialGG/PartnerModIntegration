@@ -18,7 +18,9 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.function.Consumer;
 
-//#if MC>=12102
+//#if MC>=12106
+//$$ import net.minecraft.client.gl.RenderPipelines;
+//#elseif MC>12102
 //$$ import net.minecraft.client.render.RenderLayer;
 //#endif
 
@@ -100,7 +102,9 @@ public class AdButton extends GuiButton {
             //$$ RenderSystem.color4f(1f, 1f, 1f, this.alpha);
             //#endif
     //$$
-            //#if MC>=12105
+            //#if MC>=12106
+            //$$ context.drawTexture(RenderPipelines.GUI_TEXTURED, texture, this.getX(), this.getY(), x, 0, width, height, width * 2, height, ColorHelper.getWhite(this.alpha));
+            //#elseif MC>=12105
             //$$ context.drawTexture(RenderLayer::getGuiTextured, texture, this.getX(), this.getY(), x, 0, width, height, width * 2, height, ColorHelper.getWhite(this.alpha));
             //#elseif MC>=12102
             //$$ context.drawTexture(RenderLayer::getGuiTextured, texture, this.getX(), this.getY(), x, 0, width, height, width * 2, height);

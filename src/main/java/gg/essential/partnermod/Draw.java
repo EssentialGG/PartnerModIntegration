@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-//#if MC>12102
+//#if MC>=12106
+//$$ import net.minecraft.client.gl.RenderPipelines;
+//#elseif MC>12102
 //$$ import net.minecraft.client.render.RenderLayer;
 //#endif
 
@@ -74,7 +76,9 @@ public class Draw {
     }
 
     public void texturedRect(ResourceLocation texture, int x, int y, int width, int height, int u, int v, int textureWidth, int textureHeight, int color) {
-        //#if MC>=12102
+        //#if MC>=12106
+        //$$ drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, texture, x, y, u, v, width, height, textureWidth, textureHeight, color);
+        //#elseif MC>=12102
         //$$ drawContext.drawTexture(RenderLayer::getGuiTextured, texture, x, y, u, v, width, height, textureWidth, textureHeight, color);
         //#else
         float red = ((color >> 16) & 0xFF) / 255f;

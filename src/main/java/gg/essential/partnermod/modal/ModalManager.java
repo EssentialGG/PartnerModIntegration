@@ -103,11 +103,11 @@ public class ModalManager {
     ) {
         resetMousePosition();
 
-        //#if MC>=12000
+        //#if MC>=12000 && MC<12106
         //$$ MatrixStack stack = drawContext.getMatrices();
         //#endif
 
-        //#if MC>=11600
+        //#if MC>=11600 && MC<12106
         //$$ stack.push();
         //$$ stack.translate(0, 0, 10f);
         //#endif
@@ -125,7 +125,7 @@ public class ModalManager {
         handleDraw(draw);
         Draw.flushDeferred(draw);
 
-        //#if MC>=11600
+        //#if MC>=11600 && MC<12106
         //$$ stack.pop();
         //#endif
     }
