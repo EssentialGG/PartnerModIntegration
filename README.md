@@ -1,6 +1,6 @@
 # Essential Partner Mod Integration
 
-The Essential Partner Mod Integration is part of [Essential's Partner Program](https://essential.gg/wiki/partner-program).
+The Essential Partner Mod Integration is part of [Essential's Partner Program](https://essential.gg/wiki/supporting-mod-creators).
 
 If you are interested in becoming a partner, you can learn more at the link above.
 
