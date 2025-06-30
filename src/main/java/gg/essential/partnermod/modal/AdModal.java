@@ -40,6 +40,7 @@ public class AdModal extends Modal {
     private final Map<FeatureEntry, ResourceLocation> iconTextures = new HashMap<>();
 
     private final ModalData modalData;
+    private final List<PartnerModData.PartnerMod> partnerMods;
     private final String parterModsTooltip;
     private final List<FeatureEntry> features = new ArrayList<>();
 
@@ -47,6 +48,7 @@ public class AdModal extends Modal {
 
     public AdModal(ModalData modalData, List<PartnerModData.PartnerMod> partnerMods) {
         this.modalData = modalData;
+        this.partnerMods = partnerMods;
         this.parterModsTooltip = getTooltip(partnerMods);
 
         for (ModalData.Feature feature : modalData.getFeatures()) {
@@ -76,7 +78,7 @@ public class AdModal extends Modal {
         }));
 
         buttonList.add(new InstallButton(centreX - 70, startY + installOffset, () -> {
-            boolean success = EssentialUtil.installContainer();
+            boolean success = EssentialUtil.installContainer(partnerMods);
             if (success) {
                 ModalManager.INSTANCE.setModal(TwoButtonModal.postInstall());
             } else {
