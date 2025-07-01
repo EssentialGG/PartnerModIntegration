@@ -11,12 +11,18 @@
 
 package gg.essential.partnermod;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import gg.essential.partnermod.data.PartnerModData;
 import net.minecraft.client.Minecraft;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class EssentialUtil {
 
@@ -50,7 +56,7 @@ public class EssentialUtil {
         return installationCompleted;
     }
 
-    public static boolean installContainer() {
+    public static boolean installContainer(List<PartnerModData.PartnerMod> partnerMods) {
         try {
             Path destination = Paths.get("mods", "essential-container.jar");
             if (Files.exists(destination)) {
@@ -66,10 +72,28 @@ public class EssentialUtil {
             }
             EssentialPartner.LOGGER.info("Successfully installed essential container to {}", destination.toRealPath());
             installationCompleted = true;
+            writeMetadataFile(partnerMods);
             return true;
         } catch (Exception e) {
             EssentialPartner.LOGGER.error("Failed to install essential container", e);
             return false;
+        }
+    }
+
+    private static void writeMetadataFile(List<PartnerModData.PartnerMod> partnerMods) {
+        Path metadataDestination = Paths.get("essential", "partner-integration-mod-metadata.json");
+        try {
+            Files.createDirectories(metadataDestination.getParent());
+            JsonObject metadata = new JsonObject();
+            JsonArray partnerArray = new JsonArray();
+            for (PartnerModData.PartnerMod partnerMod : partnerMods) {
+                partnerArray.add(new JsonPrimitive(partnerMod.getId()));
+            }
+            metadata.add("partnerMods", partnerArray);
+            Files.write(metadataDestination, metadata.toString().getBytes(StandardCharsets.UTF_8));
+            EssentialPartner.LOGGER.info("Successfully saved telemetry file to {}", metadataDestination.toRealPath());
+        } catch (Exception e) {
+            EssentialPartner.LOGGER.warn("Failed to store telemetry file to {}", metadataDestination.toAbsolutePath(), e);
         }
     }
 
