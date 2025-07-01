@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "gg.essential"
-version = "1.0.2"
+version = "1.0.3"
 
 repositories {
     maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
